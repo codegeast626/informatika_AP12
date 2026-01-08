@@ -1,0 +1,2029 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gim Edukasi Binary Search Tree</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes confetti {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    
+    .node-circle {
+      transition: fill 0.3s ease, stroke 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .feedback-message {
+      animation: slide-in 0.3s ease-out;
+    }
+    
+    .celebration-modal {
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .celebration-content {
+      animation: scaleIn 0.5s ease-out;
+    }
+    
+    .bounce-emoji {
+      animation: bounce 1s ease-in-out infinite;
+    }
+    
+    .confetti-piece {
+      animation: confetti 3s linear infinite;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full overflow-auto">
+  <main id="app" class="h-full w-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+   <div class="h-full w-full p-3"><!-- Header -->
+    <header class="text-center mb-2">
+     <h1 id="game-title" class="text-white font-bold mb-1" style="font-size: 1.5rem;">🌳 Bangun Binary Search Tree</h1>
+      </header><!-- Intro Screen -->
+    <div id="intro-screen" class="max-w-5xl mx-auto">
+     <div class="bg-white rounded-2xl shadow-2xl overflow-hidden"><!-- Header Section -->
+      <div class="text-center p-8 bg-gradient-to-r from-purple-500 to-blue-500">
+       <div class="text-7xl mb-3 bounce-emoji">
+        🌳
+       </div>
+       <h2 class="text-4xl font-bold text-white mb-2">Pertualangan Binary Search Tree!</h2>
+      </div><!-- Content Section -->
+      <div class="p-8">
+       <div class="grid grid-cols-3 gap-6 mb-8"><!-- Game Info Cards -->
+        <div class="flex items-start gap-3 p-4 bg-blue-50 rounded-xl">
+         <div class="text-3xl">
+          🎯
+         </div>
+         <div>
+          <h3 class="font-bold text-lg text-gray-800 mb-1">Misi Kamu</h3>
+          <p class="text-sm text-gray-600">Isi SEMUA node putih dengan angka yang benar! Root sudah terisi, kamu harus mengisi sisanya.</p>
+          <p class="text-xs text-gray-500 mt-2">💡 <strong>Lingkaran putih</strong> menunjukkan node kosong, yaitu posisi pada pohon biner yang belum diisi nilai.</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-xl">
+         <div class="text-3xl">
+          🎮
+         </div>
+         <div>
+          <h3 class="font-bold text-lg text-gray-800 mb-1">5 Level Seru</h3>
+          <p class="text-sm text-gray-600">Mulai dari pemula hingga master! Setiap level makin menantang dengan waktu terbatas.</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 bg-green-50 rounded-xl">
+         <div class="text-3xl">
+          📚
+         </div>
+         <div>
+          <h3 class="font-bold text-lg text-gray-800 mb-1">Mode Latihan</h3>
+          <p class="text-sm text-gray-600">Belajar tanpa tekanan dengan tutorial interaktif dan waktu unlimited!</p>
+         </div>
+        </div>
+       </div><!-- CTA Section -->
+       <div class="text-center">
+        <div class="flex gap-3 justify-center"><button id="start-adventure-btn" class="px-10 py-4 rounded-xl font-bold text-xl shadow-xl transition-all hover:shadow-2xl hover:scale-105 hover:-translate-y-1" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #ffffff;"> 🎮 Mulai Petualangan! </button> <button id="show-rules-btn" class="px-8 py-4 rounded-xl font-bold text-xl shadow-xl transition-all hover:shadow-2xl hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white"> 📖 Lihat Aturan BST </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Level Map Screen -->
+    <div id="level-map" class="max-w-6xl mx-auto hidden">
+     <div class="bg-white rounded-xl shadow-2xl p-4 mb-3">
+      <h2 class="text-2xl font-bold text-center mb-1">🗺️ Peta Permainan</h2>
+      <p class="text-center text-gray-600 mb-4 text-sm">Pilih level untuk mulai membangun Binary Search Tree!</p>
+      <div class="grid grid-cols-5 gap-3" id="level-cards"><!-- Level cards will be generated here -->
+      </div>
+      <div class="mt-4 text-center flex gap-3 justify-center"><button id="practice-mode-btn" class="px-6 py-3 rounded-lg font-bold text-base shadow-lg transition-all hover:shadow-xl" style="background-color: #8b5cf6; color: #ffffff;"> 📚 Mode Latihan Bebas </button> <button id="home-from-map-btn" class="px-6 py-3 rounded-lg font-bold text-base shadow-lg transition-all hover:shadow-xl bg-gradient-to-r from-blue-400 to-purple-400 text-white"> 🏠 Home </button>
+      </div>
+     </div><!-- Instructions Panel -->
+     <div class="bg-white rounded-xl shadow-2xl p-4">
+      <h3 class="text-lg font-bold mb-3">📖 Cara Bermain</h3>
+      <div class="grid grid-cols-2 gap-4">
+       <div class="space-y-2 text-gray-700 text-sm">
+        <div class="flex items-start gap-2"><span class="text-xl">1️⃣</span>
+         <p>Pilih level dari peta permainan di atas.</p>
+        </div>
+        <div class="flex items-start gap-2"><span class="text-xl">2️⃣</span>
+         <p>Klik node putih di tree yang ingin kamu isi.</p>
+        </div>
+        <div class="flex items-start gap-2"><span class="text-xl">3️⃣</span>
+         <p>Pilih angka dari daftar di sebelah kanan yang sesuai dengan aturan BST.</p>
+        </div>
+       </div>
+       <div class="space-y-2 text-gray-700 text-sm">
+        <div class="flex items-start gap-2"><span class="text-xl">4️⃣</span>
+         <p><strong>Aturan BST:</strong> Cabang kiri harus lebih kecil, cabang kanan harus lebih besar dari parent.</p>
+        </div>
+        <div class="flex items-start gap-2"><span class="text-xl">5️⃣</span>
+         <p><strong>Tujuan:</strong> Isi SEMUA node putih dengan benar untuk menyelesaikan level. Kamu punya 5 nyawa!</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Game Screen -->
+    <div id="game-screen" class="max-w-7xl mx-auto hidden">
+     <div class="grid grid-cols-4 gap-3"><!-- Left Column: Tree & Controls -->
+      <div class="col-span-3">
+       <div class="bg-white rounded-xl shadow-2xl p-3 mb-3">
+        <div class="flex items-center justify-between mb-2"><button id="back-to-map" class="px-3 py-1.5 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all text-xs"> 🗺️ Kembali </button>
+         <div id="level-info" class="text-base font-bold"></div>
+         <div class="flex gap-2 items-center">
+          <div class="text-center">
+           <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
+            Nyawa
+           </div>
+           <div id="lives" class="text-base">
+            ❤️❤️❤️❤️❤️
+           </div>
+          </div>
+          <div class="text-center">
+           <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
+            Progress
+           </div>
+           <div id="progress" class="text-lg font-bold">
+            0/7
+           </div>
+          </div>
+          <div class="text-center">
+           <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
+            Waktu
+           </div>
+           <div id="timer" class="text-lg font-bold">
+            60s
+           </div>
+          </div>
+          <div class="text-center">
+           <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
+            Skor
+           </div>
+           <div id="score" class="text-lg font-bold">
+            0
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="flex gap-2 mb-2"><button id="start-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-xs"> 🎯 Mulai </button> <button id="reset-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs"> 🔄 Ulangi </button> <button id="practice-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs"> 📚 Latihan </button> <button id="home-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs bg-gradient-to-r from-blue-400 to-purple-400 text-white"> 🏠 Home </button> <button id="answer-key-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs bg-gradient-to-r from-yellow-400 to-orange-400 text-white"> 🔑 Kunci Jawaban </button>
+        </div><!-- Feedback Message -->
+        <div id="feedback" class="text-center p-2 rounded-lg mb-2 hidden text-xs"></div><!-- Tree Visualization -->
+        <div class="relative" style="height: 420px;">
+         <svg id="tree-svg" width="100%" height="100%" class="border-2 border-gray-200 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50"><!-- Tree will be drawn here -->
+         </svg>
+        </div><!-- Delete Node Button (shown when node is selected) -->
+        <div id="delete-node-container" class="mt-2 hidden"><button id="delete-node-btn" class="w-full py-2 rounded-lg font-bold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-105 bg-gradient-to-r from-red-400 to-red-500 text-white"> 🗑️ Hapus Node yang Dipilih </button>
+        </div><!-- Check Answer Button (shown when all nodes filled) -->
+        <div id="check-answer-container" class="mt-2 hidden"><button id="check-answer-btn" class="w-full py-3 rounded-lg font-bold text-base shadow-xl transition-all hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-green-400 to-emerald-500 text-white"> ✅ Periksa Jawaban </button>
+        </div>
+       </div>
+      </div><!-- Right Column: Number Selection -->
+      <div class="col-span-1"><!-- Hint Panel -->
+       <div id="hint-panel" class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-2xl p-3 mb-3 border-2 border-yellow-300">
+        <h3 class="text-sm font-bold mb-2 text-center text-orange-700">💡 Petunjuk</h3>
+        <div id="hint-content" class="text-xs text-gray-700 space-y-2">
+         <p class="text-center">Klik <strong>"Mulai"</strong> untuk bermain!</p>
+        </div>
+       </div><!-- Number Selection Panel -->
+       <div class="bg-white rounded-xl shadow-2xl p-3 mb-3">
+        <h3 class="text-sm font-bold mb-2 text-center">🔢 Pilih Angka</h3>
+        <p class="text-xs text-gray-600 text-center mb-2">Klik node putih, lalu pilih angka</p>
+        <div id="number-choices" class="space-y-2 max-h-80 overflow-y-auto">
+         <div class="text-center text-gray-400 py-4 text-xs">
+          Klik node putih untuk mulai
+         </div>
+        </div>
+       </div><!-- Statistics Panel -->
+       <div class="bg-white rounded-xl shadow-2xl p-3">
+        <h3 class="text-xs font-bold mb-2 text-center">📊 Statistik</h3>
+        <div class="space-y-1.5">
+         <div class="text-center p-2 bg-blue-50 rounded-lg">
+          <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
+           Node Terisi
+          </div>
+          <div id="filled-count" class="text-xl font-bold mt-0.5">
+           0
+          </div>
+         </div>
+         <div class="text-center p-2 bg-green-50 rounded-lg">
+          <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
+           Kesalahan
+          </div>
+          <div id="mistake-count" class="text-xl font-bold mt-0.5">
+           0
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- BST Rules Modal -->
+   <div id="rules-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" style="background-color: rgba(0, 0, 0, 0.8); animation: fadeIn 0.3s ease-out;">
+    <div class="flex items-center justify-center min-h-full p-4 py-8">
+     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full relative overflow-hidden my-auto" style="animation: scaleIn 0.5s ease-out; max-height: 90vh;">
+      <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 to-orange-400"></div><!-- Close Button --> <button id="close-rules-x" class="sticky top-4 right-4 float-right z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-all text-gray-600 hover:text-gray-800 font-bold text-xl shadow-lg"> ✕ </button>
+      <div class="p-8 overflow-y-auto" style="max-height: calc(90vh - 1rem);">
+       <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">📖 Aturan Binary Search Tree</h2>
+       <div class="space-y-6 mb-6"><!-- Left Rule -->
+        <div class="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-6 border-2 border-red-300">
+         <div class="flex items-center gap-4 mb-3">
+          <div class="text-5xl">
+           ⬅️
+          </div>
+          <h3 class="font-bold text-2xl text-red-700">Cabang Kiri</h3>
+         </div>
+         <p class="text-lg text-gray-800 mb-3">Node di sebelah <strong>kiri</strong> harus memiliki nilai yang <strong class="text-red-600">LEBIH KECIL</strong> dari node induknya.</p>
+         <div class="bg-white rounded-lg p-4 shadow-sm">
+          <p class="text-sm font-semibold text-gray-700 mb-2">Contoh:</p>
+          <div class="flex items-center justify-center gap-2 text-lg"><span class="px-3 py-1 bg-red-200 rounded-lg font-bold">25</span> <span>⬅️</span> <span class="px-3 py-1 bg-blue-300 rounded-lg font-bold">50</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 text-center">25 lebih kecil dari 50 ✅</p>
+         </div>
+        </div><!-- Right Rule -->
+        <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border-2 border-green-300">
+         <div class="flex items-center gap-4 mb-3">
+          <div class="text-5xl">
+           ➡️
+          </div>
+          <h3 class="font-bold text-2xl text-green-700">Cabang Kanan</h3>
+         </div>
+         <p class="text-lg text-gray-800 mb-3">Node di sebelah <strong>kanan</strong> harus memiliki nilai yang <strong class="text-green-600">LEBIH BESAR</strong> dari node induknya.</p>
+         <div class="bg-white rounded-lg p-4 shadow-sm">
+          <p class="text-sm font-semibold text-gray-700 mb-2">Contoh:</p>
+          <div class="flex items-center justify-center gap-2 text-lg"><span class="px-3 py-1 bg-blue-300 rounded-lg font-bold">50</span> <span>➡️</span> <span class="px-3 py-1 bg-green-200 rounded-lg font-bold">75</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 text-center">75 lebih besar dari 50 ✅</p>
+         </div>
+        </div><!-- Visual Example -->
+        <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border-2 border-purple-300">
+         <h3 class="font-bold text-xl text-center mb-4 text-purple-700">🌳 Contoh BST Lengkap</h3>
+         <div class="flex justify-center">
+          <svg width="300" height="200" viewbox="0 0 300 200"><!-- Lines --> <line x1="150" y1="40" x2="80" y2="100" stroke="#94a3b8" stroke-width="2" /> <line x1="150" y1="40" x2="220" y2="100" stroke="#94a3b8" stroke-width="2" /> <line x1="80" y1="100" x2="50" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="80" y1="100" x2="110" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="220" y1="100" x2="190" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="220" y1="100" x2="250" y2="160" stroke="#94a3b8" stroke-width="2" /> <!-- Nodes --> <circle cx="150" cy="40" r="20" fill="#3b82f6" stroke="#1e40af" stroke-width="2" /> <text x="150" y="45" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+            50
+           </text> <circle cx="80" cy="100" r="20" fill="#ef4444" stroke="#b91c1c" stroke-width="2" /> <text x="80" y="105" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+            30
+           </text> <circle cx="220" cy="100" r="20" fill="#10b981" stroke="#047857" stroke-width="2" /> <text x="220" y="105" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+            70
+           </text> <circle cx="50" cy="160" r="20" fill="#ef4444" stroke="#b91c1c" stroke-width="2" /> <text x="50" y="165" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+            20
+           </text> <circle cx="110" cy="160" r="20" fill="#ef4444" stroke="#b91c1c" stroke-width="2" /> <text x="110" y="165" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+            40
+           </text> <circle cx="190" cy="160" r="20" fill="#10b981" stroke="#047857" stroke-width="2" /> <text x="190" y="165" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+            60
+           </text> <circle cx="250" cy="160" r="20" fill="#10b981" stroke="#047857" stroke-width="2" /> <text x="250" y="165" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+            80
+           </text>
+          </svg>
+         </div>
+         <div class="flex gap-4 justify-center mt-4 text-sm">
+          <div class="flex items-center gap-2">
+           <div class="w-4 h-4 bg-red-500 rounded"></div><span class="text-gray-700">Lebih Kecil (Kiri)</span>
+          </div>
+          <div class="flex items-center gap-2">
+           <div class="w-4 h-4 bg-green-500 rounded"></div><span class="text-gray-700">Lebih Besar (Kanan)</span>
+          </div>
+         </div>
+        </div><!-- Important Note -->
+        <div class="text-center p-4 bg-yellow-100 rounded-xl border-2 border-yellow-300">
+         <p class="text-lg font-bold text-yellow-800">💡 Tips: Root akan terisi otomatis saat game dimulai!</p>
+        </div>
+       </div>
+       <div class="text-center"><button id="close-rules-btn" class="px-8 py-3 rounded-xl font-bold text-lg shadow-xl transition-all hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-purple-500 to-blue-500 text-white"> ✅ Mengerti, Mulai Bermain! </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Celebration Modal -->
+   <div id="celebration-modal" class="fixed inset-0 z-50 hidden celebration-modal" style="background-color: rgba(0, 0, 0, 0.8);">
+    <div id="confetti-container" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+    <div class="flex items-center justify-center min-h-full p-4">
+     <div class="celebration-content bg-white rounded-2xl shadow-2xl p-6 max-w-2xl w-full relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 via-red-400 to-purple-400"></div>
+      <div id="celebration-content-inner" class="text-center space-y-4"><!-- Content will be dynamically inserted -->
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      game_title: "🌳 Bangun Binary Search Tree",
+      start_button_text: "🎯 Mulai",
+      reset_button_text: "🔄 Ulangi",
+      practice_button_text: "📚 Latihan",
+      background_color: "#667eea",
+      surface_color: "#ffffff",
+      text_color: "#1f2937",
+      primary_color: "#3b82f6",
+      secondary_color: "#8b5cf6",
+      font_family: "Arial",
+      font_size: 16
+    };
+
+    // Initialize SDK
+    async function onConfigChange(config) {
+      const baseFont = config.font_family || defaultConfig.font_family;
+      const baseFontSize = config.font_size || defaultConfig.font_size;
+      const fontStack = `${baseFont}, Arial, sans-serif`;
+
+      document.getElementById('game-title').innerHTML = config.game_title || defaultConfig.game_title;
+      
+      const startBtnText = config.start_button_text || defaultConfig.start_button_text;
+      const resetBtnText = config.reset_button_text || defaultConfig.reset_button_text;
+      const practiceBtnText = config.practice_button_text || defaultConfig.practice_button_text;
+      
+      if (document.getElementById('start-btn')) {
+        document.getElementById('start-btn').textContent = startBtnText;
+      }
+      if (document.getElementById('reset-btn')) {
+        document.getElementById('reset-btn').textContent = resetBtnText;
+      }
+      if (document.getElementById('practice-btn')) {
+        document.getElementById('practice-btn').textContent = practiceBtnText;
+      }
+      if (document.getElementById('practice-mode-btn')) {
+        document.getElementById('practice-mode-btn').textContent = practiceBtnText + ' Bebas';
+      }
+
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+      
+      document.getElementById('app').style.background = `linear-gradient(135deg, ${bgColor} 0%, ${secondaryColor} 100%)`;
+      
+      if (document.getElementById('start-btn')) {
+        document.getElementById('start-btn').style.backgroundColor = primaryColor;
+        document.getElementById('start-btn').style.color = '#ffffff';
+      }
+      if (document.getElementById('reset-btn')) {
+        document.getElementById('reset-btn').style.backgroundColor = secondaryColor;
+        document.getElementById('reset-btn').style.color = '#ffffff';
+      }
+      if (document.getElementById('practice-btn')) {
+        document.getElementById('practice-btn').style.backgroundColor = secondaryColor;
+        document.getElementById('practice-btn').style.color = '#ffffff';
+      }
+      if (document.getElementById('practice-mode-btn')) {
+        document.getElementById('practice-mode-btn').style.backgroundColor = secondaryColor;
+      }
+
+      document.getElementById('game-title').style.fontFamily = fontStack;
+      document.getElementById('game-title').style.fontSize = `${baseFontSize * 1.5}px`;
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => {
+                config.primary_color = value;
+                window.elementSdk.setConfig({ primary_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (value) => {
+                config.secondary_color = value;
+                window.elementSdk.setConfig({ secondary_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['game_title', config.game_title || defaultConfig.game_title],
+          ['start_button_text', config.start_button_text || defaultConfig.start_button_text],
+          ['reset_button_text', config.reset_button_text || defaultConfig.reset_button_text],
+          ['practice_button_text', config.practice_button_text || defaultConfig.practice_button_text]
+        ])
+      });
+    }
+
+    let gameState = {
+      isPlaying: false,
+      isPracticeMode: false,
+      currentLevel: 0,
+      levelCompleted: [],
+      levelScores: [],
+      treeStructure: [],
+      availableNumbers: [],
+      selectedNodeId: null,
+      filledNodes: 0,
+      totalNodes: 0,
+      mistakes: 0,
+      lives: 5,
+      score: 0,
+      timeLeft: 60,
+      timerInterval: null
+    };
+
+    const levels = [
+      { 
+        name: "Level 1 - Pemula", 
+        difficulty: "Mudah",
+        depth: 3, 
+        time: 120,
+        description: "Isi 6 node kosong",
+        icon: "🌱"
+      },
+      { 
+        name: "Level 2 - Menengah", 
+        difficulty: "Sedang",
+        depth: 4, 
+        time: 150,
+        description: "Isi 14 node kosong",
+        icon: "🌿"
+      },
+      { 
+        name: "Level 3 - Mahir", 
+        difficulty: "Sedang",
+        depth: 5, 
+        time: 180,
+        description: "Isi 30 node kosong",
+        icon: "🌳"
+      },
+      { 
+        name: "Level 4 - Expert", 
+        difficulty: "Sulit",
+        depth: 4, 
+        time: 100,
+        description: "Isi 14 node (waktu terbatas)",
+        icon: "⚡"
+      },
+      { 
+        name: "Level 5 - Master", 
+        difficulty: "Sangat Sulit",
+        depth: 5, 
+        time: 120,
+        description: "Isi 30 node (challenge ultimate)",
+        icon: "🏔️"
+      }
+    ];
+
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playSound(frequency, duration, type = 'sine') {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+      
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
+    }
+    
+    function playCorrectSound() {
+      playSound(523.25, 0.1);
+      setTimeout(() => playSound(659.25, 0.15), 100);
+    }
+    
+    function playWrongSound() {
+      playSound(220, 0.2, 'square');
+    }
+    
+    function playSuccessSound() {
+      playSound(523.25, 0.1);
+      setTimeout(() => playSound(659.25, 0.1), 100);
+      setTimeout(() => playSound(783.99, 0.2), 200);
+    }
+    
+    function playCelebrationSound() {
+      playSound(523.25, 0.15);
+      setTimeout(() => playSound(659.25, 0.15), 150);
+      setTimeout(() => playSound(783.99, 0.15), 300);
+      setTimeout(() => playSound(1046.50, 0.3), 450);
+    }
+    
+    function playClickSound() {
+      playSound(400, 0.05, 'sine');
+    }
+
+    function generateTreeStructure(depth) {
+      const maxNodes = Math.pow(2, depth) - 1;
+      
+      const nodes = [];
+      
+      for (let i = 0; i < maxNodes; i++) {
+        const level = Math.floor(Math.log2(i + 1));
+        const positionInLevel = i - (Math.pow(2, level) - 1);
+        const totalInLevel = Math.pow(2, level);
+        
+        const levelWidth = 100;
+        const spacing = levelWidth / (totalInLevel + 1);
+        const x = spacing * (positionInLevel + 1);
+        
+        const parentId = i === 0 ? null : Math.floor((i - 1) / 2);
+        
+        const node = {
+          id: i,
+          value: null,
+          x: x,
+          y: 6 + (level * 11),
+          level: level,
+          parent: parentId,
+          left: null,
+          right: null,
+          filled: false
+        };
+        
+        const leftChildId = 2 * i + 1;
+        const rightChildId = 2 * i + 2;
+        
+        if (leftChildId < maxNodes) {
+          node.left = leftChildId;
+        }
+        if (rightChildId < maxNodes) {
+          node.right = rightChildId;
+        }
+        
+        nodes.push(node);
+      }
+      
+      return nodes;
+    }
+
+    function generateNumbers(count) {
+      const numbers = new Set();
+      while (numbers.size < count) {
+        numbers.add(Math.floor(Math.random() * 41) + 10);
+      }
+      return Array.from(numbers).sort((a, b) => a - b);
+    }
+
+    function drawTree() {
+      const svg = document.getElementById('tree-svg');
+      const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      
+      svg.innerHTML = '';
+
+      const maxDepth = Math.max(...gameState.treeStructure.map(n => n.level)) + 1;
+      let nodeRadius, fontSize;
+      
+      if (maxDepth <= 3) {
+        nodeRadius = 22;
+        fontSize = 14;
+      } else if (maxDepth <= 4) {
+        nodeRadius = 18;
+        fontSize = 12;
+      } else {
+        nodeRadius = 15;
+        fontSize = 11;
+      }
+
+      gameState.treeStructure.forEach(node => {
+        if (node.parent !== null) {
+          const parent = gameState.treeStructure[node.parent];
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', `${parent.x}%`);
+          line.setAttribute('y1', `${parent.y}%`);
+          line.setAttribute('x2', `${node.x}%`);
+          line.setAttribute('y2', `${node.y}%`);
+          
+          if (node.filled) {
+            line.setAttribute('stroke', '#cbd5e1');
+            line.setAttribute('stroke-width', '2');
+          } else {
+            line.setAttribute('stroke', '#d1d5db');
+            line.setAttribute('stroke-width', '2');
+            line.setAttribute('stroke-dasharray', '5,5');
+          }
+          
+          svg.appendChild(line);
+        }
+      });
+
+      gameState.treeStructure.forEach(node => {
+        if (node.filled) {
+          const hasLeftChild = node.left !== null;
+          const hasRightChild = node.right !== null;
+          
+          if (!hasLeftChild) {
+            drawNullNode(svg, node, 'left', nodeRadius, fontSize);
+          }
+          if (!hasRightChild) {
+            drawNullNode(svg, node, 'right', nodeRadius, fontSize);
+          }
+        }
+      });
+
+      gameState.treeStructure.forEach(node => {
+        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        group.setAttribute('data-node-id', node.id);
+        
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', `${node.x}%`);
+        circle.setAttribute('cy', `${node.y}%`);
+        circle.setAttribute('r', nodeRadius);
+        
+        if (node.filled) {
+          if (gameState.selectedNodeId === node.id && node.id !== 0) {
+            circle.setAttribute('fill', '#ef4444');
+            circle.setAttribute('stroke', '#dc2626');
+            circle.setAttribute('stroke-width', '3');
+            group.style.cursor = 'pointer';
+          } else {
+            circle.setAttribute('fill', '#10b981');
+            circle.setAttribute('stroke', '#059669');
+            circle.setAttribute('stroke-width', '3');
+            group.style.cursor = node.id === 0 ? 'default' : 'pointer';
+          }
+        } else if (gameState.selectedNodeId === node.id) {
+          circle.setAttribute('fill', '#fbbf24');
+          circle.setAttribute('stroke', '#f59e0b');
+          circle.setAttribute('stroke-width', '3');
+          group.style.cursor = 'pointer';
+        } else {
+          circle.setAttribute('fill', surfaceColor);
+          circle.setAttribute('stroke', '#94a3b8');
+          circle.setAttribute('stroke-width', '3');
+          group.style.cursor = 'pointer';
+        }
+        
+        circle.classList.add('node-circle');
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', `${node.x}%`);
+        text.setAttribute('y', `${node.y}%`);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('dominant-baseline', 'middle');
+        text.setAttribute('fill', 'white');
+        text.setAttribute('font-size', fontSize);
+        text.setAttribute('font-weight', 'bold');
+        text.textContent = node.filled ? node.value : '';
+
+        group.appendChild(circle);
+        group.appendChild(text);
+        svg.appendChild(group);
+
+        if (gameState.isPlaying) {
+          group.addEventListener('click', () => selectNode(node.id));
+        }
+      });
+    }
+
+    function drawNullNode(svg, parentNode, side, nodeRadius, fontSize) {
+      const offsetX = side === 'left' ? -8 : 8;
+      const offsetY = 11;
+      const nullX = parentNode.x + offsetX;
+      const nullY = parentNode.y + offsetY;
+      
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', `${parentNode.x}%`);
+      line.setAttribute('y1', `${parentNode.y}%`);
+      line.setAttribute('x2', `${nullX}%`);
+      line.setAttribute('y2', `${nullY}%`);
+      line.setAttribute('stroke', '#d1d5db');
+      line.setAttribute('stroke-width', '1.5');
+      line.setAttribute('stroke-dasharray', '3,3');
+      svg.appendChild(line);
+      
+      const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      group.setAttribute('class', 'null-node');
+      group.style.cursor = 'help';
+      
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', `${nullX}%`);
+      circle.setAttribute('cy', `${nullY}%`);
+      circle.setAttribute('r', nodeRadius * 0.7);
+      circle.setAttribute('fill', '#e5e7eb');
+      circle.setAttribute('stroke', '#9ca3af');
+      circle.setAttribute('stroke-width', '2');
+      
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', `${nullX}%`);
+      text.setAttribute('y', `${nullY}%`);
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('fill', '#6b7280');
+      text.setAttribute('font-size', fontSize);
+      text.setAttribute('font-weight', 'bold');
+      text.textContent = 'Ø';
+      
+      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+      title.textContent = 'Node kosong (NULL): tidak ada data pada posisi ini. Pencarian berhenti di sini.';
+      
+      group.appendChild(title);
+      group.appendChild(circle);
+      group.appendChild(text);
+      svg.appendChild(group);
+    }
+
+    function selectNode(nodeId) {
+      if (!gameState.isPlaying) return;
+      
+      const node = gameState.treeStructure[nodeId];
+      if (node.filled) {
+        if (nodeId === 0) {
+          showFeedback('⚠️ Root tidak bisa dihapus!', 'error');
+          return;
+        }
+        
+        playClickSound();
+        gameState.selectedNodeId = nodeId;
+        document.getElementById('delete-node-container').classList.remove('hidden');
+        drawTree();
+        renderNumberChoices();
+        updateHints(node);
+        showFeedback(`Node ${node.value} dipilih. Klik tombol "Hapus Node" untuk menghapusnya.`, 'info');
+        return;
+      }
+      
+      playClickSound();
+      gameState.selectedNodeId = nodeId;
+      document.getElementById('delete-node-container').classList.add('hidden');
+      drawTree();
+      renderNumberChoices();
+      updateHints(node);
+      
+      const range = getValidRange(nodeId);
+      const validNumbers = gameState.availableNumbers.filter(num => {
+        return num > range.minValue && num < range.maxValue;
+      });
+      
+      if (validNumbers.length === 0) {
+        showFeedback(`⚠️ Node ini tidak perlu diisi (akan menjadi NULL). Pilih node putih lainnya.`, 'info');
+      } else {
+        showFeedback(`Node dipilih! Pilih angka yang sesuai dari panel kanan.`, 'info');
+      }
+    }
+
+    function renderNumberChoices() {
+      const container = document.getElementById('number-choices');
+      const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      
+      if (!gameState.isPlaying) {
+        container.innerHTML = '<div class="text-center text-gray-400 py-4 text-xs">Klik "Mulai" untuk bermain</div>';
+        return;
+      }
+      
+      if (gameState.selectedNodeId === null) {
+        container.innerHTML = '<div class="text-center text-gray-400 py-4 text-xs">Klik node putih untuk mulai</div>';
+        return;
+      }
+      
+      const range = getValidRange(gameState.selectedNodeId);
+      const validNumbers = gameState.availableNumbers.filter(num => {
+        return num > range.minValue && num < range.maxValue;
+      });
+      
+      if (validNumbers.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-4">
+            <div class="text-4xl mb-2">🚫</div>
+            <p class="text-xs text-gray-600 font-semibold mb-2">Node NULL</p>
+            <p class="text-xs text-gray-500">Node ini tidak perlu diisi karena tidak ada angka yang valid untuk posisi ini.</p>
+            <p class="text-xs text-gray-500 mt-2">Pilih node putih lainnya.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      if (gameState.availableNumbers.length === 0) {
+        container.innerHTML = '<div class="text-center text-gray-400 py-4 text-xs">Tidak ada angka tersisa</div>';
+        return;
+      }
+      
+      container.innerHTML = gameState.availableNumbers.map(num => `
+        <button class="w-full py-2.5 px-4 rounded-lg font-bold text-lg shadow-md hover:shadow-lg transition-all text-white number-choice-btn"
+                style="background-color: ${primaryColor};"
+                data-number="${num}">
+          ${num}
+        </button>
+      `).join('');
+      
+      document.querySelectorAll('.number-choice-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const number = parseInt(btn.dataset.number);
+          placeNumber(number);
+        });
+      });
+    }
+
+    function placeNumber(number) {
+      if (gameState.selectedNodeId === null) return;
+      
+      const node = gameState.treeStructure[gameState.selectedNodeId];
+      
+      if (isValidPlacement(node.id, number)) {
+        playCorrectSound();
+        node.value = number;
+        node.filled = true;
+        gameState.filledNodes++;
+        
+        gameState.availableNumbers = gameState.availableNumbers.filter(n => n !== number);
+        
+        const nodesLeft = gameState.totalNodes - gameState.filledNodes;
+        if (nodesLeft > 0) {
+          showFeedback(`✅ Benar! Angka ${number} tepat! Tersisa ${nodesLeft} node lagi.`, 'success');
+        } else {
+          showFeedback(`✅ Sempurna! Semua node terisi. Memeriksa jawaban...`, 'success');
+        }
+        
+        gameState.selectedNodeId = null;
+        document.getElementById('delete-node-container').classList.add('hidden');
+        drawTree();
+        renderNumberChoices();
+        updateStats();
+        
+        if (gameState.filledNodes === gameState.totalNodes) {
+          setTimeout(() => {
+            checkAllAnswersAuto();
+          }, 800);
+        }
+      } else {
+        playWrongSound();
+        gameState.mistakes++;
+        
+        const explanation = getWrongPlacementExplanation(node.id, number);
+        showFeedback(`❌ Salah! ${explanation} -1 nyawa`, 'error');
+        
+        if (loseLife()) return;
+        updateStats();
+      }
+    }
+
+    function deleteSelectedNode() {
+      if (gameState.selectedNodeId === null) {
+        showFeedback('⚠️ Pilih node terlebih dahulu!', 'error');
+        return;
+      }
+
+      const node = gameState.treeStructure[gameState.selectedNodeId];
+      
+      if (!node.filled) {
+        showFeedback('⚠️ Node ini belum diisi!', 'error');
+        return;
+      }
+
+      if (gameState.selectedNodeId === 0) {
+        showFeedback('⚠️ Root tidak bisa dihapus!', 'error');
+        return;
+      }
+
+      const hasFilledChildren = checkFilledChildren(node.id);
+      if (hasFilledChildren) {
+        showFeedback('⚠️ Hapus dulu node anak-anaknya sebelum menghapus node ini!', 'error');
+        return;
+      }
+
+      playClickSound();
+      
+      const deletedValue = node.value;
+      
+      gameState.availableNumbers.push(deletedValue);
+      gameState.availableNumbers.sort((a, b) => a - b);
+      
+      node.value = null;
+      node.filled = false;
+      gameState.filledNodes--;
+      
+      showFeedback(`✅ Node berhasil dihapus! Angka ${deletedValue} dikembalikan ke daftar pilihan.`, 'success');
+      
+      gameState.selectedNodeId = null;
+      document.getElementById('delete-node-container').classList.add('hidden');
+      document.getElementById('check-answer-container').classList.add('hidden');
+      drawTree();
+      renderNumberChoices();
+      updateStats();
+    }
+
+    function checkFilledChildren(nodeId) {
+      const node = gameState.treeStructure[nodeId];
+      
+      if (node.left !== null) {
+        const leftChild = gameState.treeStructure[node.left];
+        if (leftChild.filled) return true;
+      }
+      
+      if (node.right !== null) {
+        const rightChild = gameState.treeStructure[node.right];
+        if (rightChild.filled) return true;
+      }
+      
+      return false;
+    }
+
+    function checkAllAnswers() {
+      playClickSound();
+      
+      const nodesToFill = gameState.treeStructure.filter(node => {
+        if (node.filled) return false;
+        const range = getValidRange(node.id);
+        const validNumbers = gameState.availableNumbers.filter(num => {
+          return num > range.minValue && num < range.maxValue;
+        });
+        return validNumbers.length > 0;
+      }).length;
+      
+      if (nodesToFill > 0) {
+        showFeedback(`⚠️ Masih ada ${nodesToFill} node putih yang perlu diisi!`, 'error');
+        return;
+      }
+      
+      let allCorrect = true;
+      
+      for (let node of gameState.treeStructure) {
+        if (!node.filled) continue;
+        
+        if (node.parent !== null) {
+          const parent = gameState.treeStructure[node.parent];
+          if (!parent.filled) {
+            allCorrect = false;
+            break;
+          }
+          
+          const isLeftChild = parent.left === node.id;
+          if (isLeftChild && node.value >= parent.value) {
+            allCorrect = false;
+            break;
+          }
+          if (!isLeftChild && node.value <= parent.value) {
+            allCorrect = false;
+            break;
+          }
+        }
+        
+        if (node.left !== null) {
+          const leftChild = gameState.treeStructure[node.left];
+          if (leftChild.filled && leftChild.value >= node.value) {
+            allCorrect = false;
+            break;
+          }
+        }
+        
+        if (node.right !== null) {
+          const rightChild = gameState.treeStructure[node.right];
+          if (rightChild.filled && rightChild.value <= node.value) {
+            allCorrect = false;
+            break;
+          }
+        }
+      }
+      
+      if (allCorrect) {
+        playSuccessSound();
+        showFeedback('🎉 Sempurna! Semua jawaban benar! Tree kamu valid!', 'success');
+        setTimeout(() => {
+          endGame(true);
+        }, 1500);
+      } else {
+        playWrongSound();
+        showFeedback('❌ Ada kesalahan dalam tree-mu. Periksa kembali aturan BST!', 'error');
+      }
+    }
+
+    function checkAllAnswersAuto() {
+      if (gameState.filledNodes !== gameState.totalNodes) {
+        return;
+      }
+      
+      let allCorrect = true;
+      
+      for (let node of gameState.treeStructure) {
+        if (!node.filled) continue;
+        
+        if (node.parent !== null) {
+          const parent = gameState.treeStructure[node.parent];
+          if (!parent.filled) {
+            allCorrect = false;
+            break;
+          }
+          
+          const isLeftChild = parent.left === node.id;
+          if (isLeftChild && node.value >= parent.value) {
+            allCorrect = false;
+            break;
+          }
+          if (!isLeftChild && node.value <= parent.value) {
+            allCorrect = false;
+            break;
+          }
+        }
+        
+        if (node.left !== null) {
+          const leftChild = gameState.treeStructure[node.left];
+          if (leftChild.filled && leftChild.value >= node.value) {
+            allCorrect = false;
+            break;
+          }
+        }
+        
+        if (node.right !== null) {
+          const rightChild = gameState.treeStructure[node.right];
+          if (rightChild.filled && rightChild.value <= node.value) {
+            allCorrect = false;
+            break;
+          }
+        }
+      }
+      
+      if (allCorrect) {
+        playSuccessSound();
+        showFeedback('🎉 Sempurna! Semua jawaban benar! Tree kamu valid!', 'success');
+        setTimeout(() => {
+          endGame(true);
+        }, 1500);
+      } else {
+        document.getElementById('check-answer-container').classList.remove('hidden');
+      }
+    }
+
+    function getWrongPlacementExplanation(nodeId, value) {
+      const node = gameState.treeStructure[nodeId];
+      
+      if (node.parent !== null) {
+        const parent = gameState.treeStructure[node.parent];
+        const isLeftChild = parent.left === nodeId;
+        
+        if (isLeftChild && value >= parent.value) {
+          return `Karena ini node kiri dari ${parent.value}, angka harus lebih kecil dari ${parent.value}`;
+        }
+        if (!isLeftChild && value <= parent.value) {
+          return `Karena ini node kanan dari ${parent.value}, angka harus lebih besar dari ${parent.value}`;
+        }
+      }
+      
+      return `Angka ${value} tidak sesuai aturan BST untuk posisi ini`;
+    }
+
+    function updateHints(node) {
+      const hintContent = document.getElementById('hint-content');
+      
+      if (!node) {
+        hintContent.innerHTML = '<p class="text-center">Klik node putih untuk mulai!</p>';
+        return;
+      }
+
+      const range = getValidRange(node.id);
+      const validNumbers = gameState.availableNumbers.filter(num => {
+        return num > range.minValue && num < range.maxValue;
+      });
+      
+      if (validNumbers.length === 0) {
+        hintContent.innerHTML = `
+          <div class="text-center space-y-2">
+            <div class="text-3xl">🚫</div>
+            <p class="font-bold text-orange-700">Node NULL</p>
+            <p class="text-xs">Node ini <strong>tidak perlu diisi</strong> karena tidak ada angka yang valid untuk posisi ini.</p>
+            <p class="text-xs">Node ini akan otomatis menjadi <strong>NULL</strong> (kosong).</p>
+            <p class="text-xs mt-2">Silakan pilih <strong>node putih lainnya</strong> yang masih bisa diisi.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let hints = [];
+      
+      if (node.parent !== null) {
+        const parent = gameState.treeStructure[node.parent];
+        const isLeftChild = parent.left === node.id;
+        
+        if (isLeftChild) {
+          hints.push(`<div class="flex items-start gap-2">
+            <span class="text-lg">⬅️</span>
+            <p>Node ini berada di <strong class="text-red-600">sebelah KIRI</strong> dari <strong>${parent.value}</strong></p>
+          </div>`);
+          hints.push(`<div class="flex items-start gap-2">
+            <span class="text-lg">📉</span>
+            <p>Pilih angka yang <strong class="text-red-600">LEBIH KECIL</strong> dari <strong>${parent.value}</strong></p>
+          </div>`);
+        } else {
+          hints.push(`<div class="flex items-start gap-2">
+            <span class="text-lg">➡️</span>
+            <p>Node ini berada di <strong class="text-green-600">sebelah KANAN</strong> dari <strong>${parent.value}</strong></p>
+          </div>`);
+          hints.push(`<div class="flex items-start gap-2">
+            <span class="text-lg">📈</span>
+            <p>Pilih angka yang <strong class="text-green-600">LEBIH BESAR</strong> dari <strong>${parent.value}</strong></p>
+          </div>`);
+        }
+        
+        const range = getValidRange(node.id);
+        if (range.minValue > -Infinity || range.maxValue < Infinity) {
+          let rangeText = '';
+          if (range.minValue > -Infinity && range.maxValue < Infinity) {
+            rangeText = `<strong>${range.minValue + 1}</strong> sampai <strong>${range.maxValue - 1}</strong>`;
+          } else if (range.minValue > -Infinity) {
+            rangeText = `lebih dari <strong>${range.minValue}</strong>`;
+          } else {
+            rangeText = `kurang dari <strong>${range.maxValue}</strong>`;
+          }
+          
+          hints.push(`<div class="flex items-start gap-2">
+            <span class="text-lg">🎯</span>
+            <p>Rentang valid: ${rangeText}</p>
+          </div>`);
+        }
+      } else {
+        hints.push(`<div class="text-center">
+          <p class="font-bold">🌳 Node Root</p>
+          <p class="mt-1">Sudah terisi otomatis!</p>
+        </div>`);
+      }
+
+      hintContent.innerHTML = hints.join('');
+    }
+
+    function getValidRange(nodeId) {
+      let minValue = -Infinity;
+      let maxValue = Infinity;
+      
+      let currentId = nodeId;
+      let path = [];
+      
+      while (currentId !== null) {
+        path.unshift(currentId);
+        const currentNode = gameState.treeStructure[currentId];
+        currentId = currentNode.parent;
+      }
+      
+      for (let i = 0; i < path.length - 1; i++) {
+        const parentId = path[i];
+        const childId = path[i + 1];
+        const parent = gameState.treeStructure[parentId];
+        
+        if (!parent.filled) break;
+        
+        const isLeftChild = parent.left === childId;
+        if (isLeftChild) {
+          maxValue = Math.min(maxValue, parent.value);
+        } else {
+          minValue = Math.max(minValue, parent.value);
+        }
+      }
+      
+      return { minValue, maxValue };
+    }
+
+    function isValidPlacement(nodeId, value) {
+      const node = gameState.treeStructure[nodeId];
+      
+      if (node.parent !== null) {
+        const parent = gameState.treeStructure[node.parent];
+        if (!parent.filled) return false;
+        
+        const isLeftChild = parent.left === nodeId;
+        if (isLeftChild && value >= parent.value) return false;
+        if (!isLeftChild && value <= parent.value) return false;
+      }
+      
+      const range = getValidRange(nodeId);
+      
+      if (value <= range.minValue || value >= range.maxValue) {
+        return false;
+      }
+      
+      if (node.left !== null) {
+        const leftChild = gameState.treeStructure[node.left];
+        if (leftChild.filled && leftChild.value >= value) {
+          return false;
+        }
+      }
+      
+      if (node.right !== null) {
+        const rightChild = gameState.treeStructure[node.right];
+        if (rightChild.filled && rightChild.value <= value) {
+          return false;
+        }
+      }
+      
+      return true;
+    }
+
+    function calculateLevelScore() {
+      let score = 50;
+      
+      const mistakePenalty = Math.min(gameState.mistakes * 10, 30);
+      score -= mistakePenalty;
+      
+      const currentLevel = levels[gameState.currentLevel];
+      const timeRatio = gameState.timeLeft / currentLevel.time;
+      const timeBonus = Math.floor(timeRatio * 20);
+      score += timeBonus;
+      
+      const livesBonus = gameState.lives * 10;
+      score += livesBonus;
+      
+      score = Math.max(0, Math.min(100, score));
+      
+      return score;
+    }
+
+    function updateStats() {
+      document.getElementById('filled-count').textContent = gameState.filledNodes;
+      document.getElementById('progress').textContent = `${gameState.filledNodes}/${gameState.totalNodes}`;
+      document.getElementById('mistake-count').textContent = gameState.mistakes;
+      document.getElementById('score').textContent = gameState.score;
+    }
+
+    function updateTimer() {
+      document.getElementById('timer').textContent = `${gameState.timeLeft}s`;
+    }
+
+    function updateLives() {
+      const livesDisplay = document.getElementById('lives');
+      const hearts = '❤️'.repeat(gameState.lives) + '🖤'.repeat(5 - gameState.lives);
+      livesDisplay.textContent = hearts;
+    }
+
+    function loseLife() {
+      if (gameState.isPracticeMode) {
+        return false;
+      }
+
+      gameState.lives--;
+      updateLives();
+      
+      if (gameState.lives <= 0) {
+        showFeedback('💔 Nyawa habis! Menampilkan hasil...', 'error');
+        setTimeout(() => {
+          showGameOverModal();
+        }, 1500);
+        return true;
+      }
+      return false;
+    }
+
+    function showTimeUpModal() {
+      const modal = document.getElementById('celebration-modal');
+      const contentInner = document.getElementById('celebration-content-inner');
+      
+      playWrongSound();
+      
+      document.getElementById('check-answer-container').classList.add('hidden');
+      
+      const completionRate = Math.floor((gameState.filledNodes / gameState.totalNodes) * 100);
+      const levelScore = 0;
+      gameState.levelScores[gameState.currentLevel] = levelScore;
+      
+      contentInner.innerHTML = `
+        <div class="text-6xl mb-4">⏰</div>
+        <h2 class="text-3xl font-bold mb-3 text-orange-600">Waktu Habis!</h2>
+        <div class="text-lg mb-4 text-gray-700">
+          Waktumu habis, tapi jangan menyerah!
+        </div>
+        
+        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+          <div class="grid grid-cols-3 gap-3">
+            <div class="text-center">
+              <div class="text-gray-600 font-semibold mb-1 text-sm">Node Terisi</div>
+              <div class="text-2xl font-bold text-blue-600">${gameState.filledNodes}/${gameState.totalNodes}</div>
+            </div>
+            <div class="text-center">
+              <div class="text-gray-600 font-semibold mb-1 text-sm">Progress</div>
+              <div class="text-2xl font-bold text-purple-600">${completionRate}%</div>
+            </div>
+            <div class="text-center">
+              <div class="text-gray-600 font-semibold mb-1 text-sm">Skor Level</div>
+              <div class="text-2xl font-bold text-orange-600">${levelScore}/100</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-3 mb-4">
+          <p class="text-sm text-yellow-800 font-semibold">
+            💡 Karena waktu habis, skor level ini adalah 0. Tapi kamu bisa lanjut ke level berikutnya!
+          </p>
+        </div>
+
+        <div class="flex gap-2 justify-center">
+          ${gameState.currentLevel < levels.length - 1 ? `
+            <button id="next-level-timeup" class="px-5 py-2 rounded-lg font-bold shadow-lg transition-all hover:scale-105"
+                    style="background-color: #3b82f6; color: white;">
+              ➡️ Lanjut ke ${levels[gameState.currentLevel + 1].name}
+            </button>
+          ` : ''}
+          <button id="retry-level-timeup" class="px-5 py-2 rounded-lg font-bold shadow-lg transition-all hover:scale-105"
+                  style="background-color: #8b5cf6; color: white;">
+            🔄 Coba Lagi
+          </button>
+          <button id="back-to-map-timeup" class="px-5 py-2 bg-gray-500 text-white rounded-lg font-bold shadow-lg transition-all hover:scale-105">
+            🗺️ Kembali ke Peta
+          </button>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+      
+      gameState.levelCompleted[gameState.currentLevel] = true;
+      
+      if (document.getElementById('next-level-timeup')) {
+        document.getElementById('next-level-timeup').addEventListener('click', () => {
+          playClickSound();
+          modal.classList.add('hidden');
+          startLevel(gameState.currentLevel + 1);
+        });
+      }
+      
+      document.getElementById('retry-level-timeup').addEventListener('click', () => {
+        playClickSound();
+        modal.classList.add('hidden');
+        resetGame();
+        startGame(gameState.isPracticeMode);
+      });
+      
+      document.getElementById('back-to-map-timeup').addEventListener('click', () => {
+        playClickSound();
+        modal.classList.add('hidden');
+        showLevelMap();
+      });
+    }
+
+    function showGameOverModal() {
+      const modal = document.getElementById('celebration-modal');
+      const contentInner = document.getElementById('celebration-content-inner');
+      
+      if (gameState.timerInterval) {
+        clearInterval(gameState.timerInterval);
+        gameState.timerInterval = null;
+      }
+
+      gameState.isPlaying = false;
+      document.getElementById('start-btn').disabled = false;
+      document.getElementById('check-answer-container').classList.add('hidden');
+      
+      contentInner.innerHTML = `
+        <div class="text-6xl mb-4">💔</div>
+        <h2 class="text-3xl font-bold mb-3 text-red-600">Nyawa Habis!</h2>
+        <div class="text-lg mb-4 text-gray-700">
+          Level ini cukup menantang, tapi jangan menyerah!
+        </div>
+        
+        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="text-center">
+              <div class="text-gray-600 font-semibold mb-1 text-sm">Node Terisi</div>
+              <div class="text-2xl font-bold text-blue-600">${gameState.filledNodes}/${gameState.totalNodes}</div>
+            </div>
+            <div class="text-center">
+              <div class="text-gray-600 font-semibold mb-1 text-sm">Kesalahan</div>
+              <div class="text-2xl font-bold text-red-600">${gameState.mistakes}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-2 justify-center">
+          <button id="retry-level-btn" class="px-5 py-2 rounded-lg font-bold shadow-lg transition-all hover:scale-105"
+                  style="background-color: #3b82f6; color: white;">
+            🔄 Coba Lagi
+          </button>
+          <button id="back-to-map-gameover" class="px-5 py-2 bg-gray-500 text-white rounded-lg font-bold shadow-lg transition-all hover:scale-105">
+            🗺️ Kembali ke Peta
+          </button>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+      
+      document.getElementById('retry-level-btn').addEventListener('click', () => {
+        playClickSound();
+        modal.classList.add('hidden');
+        resetGame();
+        startGame(gameState.isPracticeMode);
+      });
+      
+      document.getElementById('back-to-map-gameover').addEventListener('click', () => {
+        playClickSound();
+        modal.classList.add('hidden');
+        showLevelMap();
+      });
+    }
+
+    function showFeedback(message, type) {
+      const feedback = document.getElementById('feedback');
+      feedback.innerHTML = message;
+      feedback.className = `text-center p-2 rounded-lg mb-2 feedback-message text-xs ${
+        type === 'success' ? 'bg-green-100 text-green-800' : 
+        type === 'error' ? 'bg-red-100 text-red-800' : 
+        'bg-blue-100 text-blue-800'
+      }`;
+      feedback.classList.remove('hidden');
+    }
+
+    function startGame(practiceMode = false) {
+      playClickSound();
+      gameState.isPlaying = true;
+      gameState.isPracticeMode = practiceMode;
+      gameState.selectedNodeId = null;
+      gameState.filledNodes = 0;
+      gameState.mistakes = 0;
+      gameState.score = 0;
+      gameState.lives = 5;
+      
+      document.getElementById('check-answer-container').classList.add('hidden');
+      
+      let currentDepth;
+      
+      if (practiceMode) {
+        gameState.timeLeft = 999;
+        currentDepth = 3;
+        document.getElementById('level-info').textContent = '📚 Mode Latihan';
+      } else {
+        const currentLevel = levels[gameState.currentLevel];
+        gameState.timeLeft = currentLevel.time;
+        currentDepth = currentLevel.depth;
+        document.getElementById('level-info').textContent = `${currentLevel.icon} ${currentLevel.name}`;
+      }
+
+      gameState.treeStructure = generateTreeStructure(currentDepth);
+      gameState.totalNodes = gameState.treeStructure.length;
+      gameState.availableNumbers = generateNumbers(gameState.totalNodes);
+
+      document.getElementById('start-btn').disabled = true;
+      
+      hideLevelMap();
+      drawTree();
+      renderNumberChoices();
+      updateStats();
+      updateTimer();
+      updateLives();
+
+      let validTreeFound = false;
+      let attempts = 0;
+      const maxAttempts = 5;
+      
+      while (!validTreeFound && attempts < maxAttempts) {
+        attempts++;
+        
+        gameState.treeStructure = generateTreeStructure(currentDepth);
+        gameState.availableNumbers = generateNumbers(gameState.totalNodes);
+        
+        const minRootIndex = Math.floor(gameState.availableNumbers.length * 0.3);
+        const maxRootIndex = Math.floor(gameState.availableNumbers.length * 0.6);
+        const rootIndex = minRootIndex + Math.floor(Math.random() * (maxRootIndex - minRootIndex));
+        const rootValue = gameState.availableNumbers[rootIndex];
+        
+        const rootNode = gameState.treeStructure[0];
+        rootNode.value = rootValue;
+        rootNode.filled = true;
+        gameState.availableNumbers.splice(rootIndex, 1);
+        
+        validTreeFound = true;
+        for (let node of gameState.treeStructure) {
+          if (!node.filled) {
+            const range = getValidRange(node.id);
+            const validNumbers = gameState.availableNumbers.filter(num => {
+              return num > range.minValue && num < range.maxValue;
+            });
+            if (validNumbers.length === 0) {
+              validTreeFound = false;
+              break;
+            }
+          }
+        }
+      }
+      
+      gameState.filledNodes = 1;
+      
+      drawTree();
+      renderNumberChoices();
+      updateStats();
+      updateHints(null);
+      
+      const nodesLeft = gameState.totalNodes - gameState.filledNodes;
+      showFeedback(`🎯 Root sudah terisi dengan ${gameState.treeStructure[0].value}! Isi ${nodesLeft} node kosong lainnya.`, 'info');
+
+      if (!practiceMode) {
+        gameState.timerInterval = setInterval(() => {
+          gameState.timeLeft--;
+          updateTimer();
+          
+          if (gameState.timeLeft <= 0) {
+            clearInterval(gameState.timerInterval);
+            gameState.timerInterval = null;
+            gameState.isPlaying = false;
+            showTimeUpModal();
+          }
+        }, 1000);
+      }
+    }
+
+    function resetGame() {
+      playClickSound();
+      if (gameState.timerInterval) {
+        clearInterval(gameState.timerInterval);
+        gameState.timerInterval = null;
+      }
+
+      gameState.isPlaying = false;
+      gameState.selectedNodeId = null;
+      gameState.filledNodes = 0;
+      gameState.mistakes = 0;
+      gameState.score = 0;
+      gameState.lives = 5;
+
+      document.getElementById('start-btn').disabled = false;
+      document.getElementById('feedback').classList.add('hidden');
+      document.getElementById('check-answer-container').classList.add('hidden');
+
+      let currentDepth = gameState.isPracticeMode ? 3 : levels[gameState.currentLevel].depth;
+      gameState.timeLeft = gameState.isPracticeMode ? 999 : levels[gameState.currentLevel].time;
+      
+      gameState.treeStructure = generateTreeStructure(currentDepth);
+      gameState.totalNodes = gameState.treeStructure.length;
+      gameState.availableNumbers = generateNumbers(gameState.totalNodes);
+
+      drawTree();
+      renderNumberChoices();
+      updateStats();
+      updateTimer();
+      updateLives();
+      updateHints(null);
+      
+      showFeedback('Game direset! Klik "Mulai" untuk bermain lagi.', 'info');
+    }
+
+    function startLevel(levelIndex) {
+      gameState.currentLevel = levelIndex;
+      startGame(false);
+    }
+
+    function createConfetti() {
+      const container = document.getElementById('confetti-container');
+      const colors = ['#ff6b6b', '#ffd93d', '#6bcf7f', '#4d96ff', '#a78bfa', '#ff8fab'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        confetti.style.position = 'absolute';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        container.appendChild(confetti);
+      }
+      
+      setTimeout(() => {
+        container.innerHTML = '';
+      }, 5000);
+    }
+
+    function showCelebrationModal(isAllLevelsComplete = false) {
+      const modal = document.getElementById('celebration-modal');
+      const contentInner = document.getElementById('celebration-content-inner');
+      
+      playCelebrationSound();
+      createConfetti();
+      
+      if (isAllLevelsComplete) {
+        const totalScore = gameState.levelScores.reduce((sum, score) => sum + (score || 0), 0);
+        const maxPossibleScore = levels.length * 100;
+        const avgScore = Math.floor(totalScore / levels.length);
+        
+        contentInner.innerHTML = `
+          <div class="text-6xl mb-4 bounce-emoji">🏆</div>
+          <h2 class="text-3xl font-bold mb-3" style="background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            SELAMAT!
+          </h2>
+          <div class="text-xl font-bold text-purple-600 mb-3">
+            Kamu Telah Menyelesaikan Semua Level!
+          </div>
+          <div class="text-lg mb-4">
+            Kamu adalah <span class="font-bold text-yellow-600">Master BST Builder</span>!
+          </div>
+          
+          <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 mb-4 border-2 border-yellow-300">
+            <div class="text-2xl font-bold mb-2" style="color: #FFD700;">
+              Total Skor: ${totalScore}/${maxPossibleScore}
+            </div>
+            <div class="text-lg font-semibold text-gray-700">
+              Rata-rata: ${avgScore}/100
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-3 mb-4">
+            <h3 class="font-bold text-sm mb-2">📊 Skor Per Level:</h3>
+            <div class="space-y-1">
+              ${levels.map((level, index) => `
+                <div class="flex justify-between items-center text-sm">
+                  <span>${level.icon} ${level.name}</span>
+                  <span class="font-bold ${gameState.levelScores[index] >= 80 ? 'text-green-600' : gameState.levelScores[index] >= 50 ? 'text-yellow-600' : 'text-orange-600'}">${gameState.levelScores[index] || 0}/100</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <button id="close-celebration" class="px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-all hover:scale-105"
+                  style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+            🗺️ Kembali ke Peta Level
+          </button>
+        `;
+      } else {
+        const levelScore = calculateLevelScore();
+        gameState.levelScores[gameState.currentLevel] = levelScore;
+        
+        const nextLevel = gameState.currentLevel + 1;
+        
+        let scoreGrade = '';
+        let scoreColor = '';
+        if (levelScore >= 90) {
+          scoreGrade = '🌟 Sempurna!';
+          scoreColor = '#FFD700';
+        } else if (levelScore >= 75) {
+          scoreGrade = '⭐ Bagus Sekali!';
+          scoreColor = '#10b981';
+        } else if (levelScore >= 60) {
+          scoreGrade = '✨ Bagus!';
+          scoreColor = '#3b82f6';
+        } else {
+          scoreGrade = '💪 Bisa Lebih Baik!';
+          scoreColor = '#f59e0b';
+        }
+        
+        contentInner.innerHTML = `
+          <div class="text-5xl mb-3 bounce-emoji">🎉</div>
+          <h2 class="text-2xl font-bold mb-3 text-purple-600">
+            Level Selesai!
+          </h2>
+          <div class="text-lg mb-4">
+            ${levels[gameState.currentLevel].icon} ${levels[gameState.currentLevel].name} - Berhasil!
+          </div>
+          
+          <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 mb-4 border-2" style="border-color: ${scoreColor};">
+            <div class="text-3xl font-bold mb-2" style="color: ${scoreColor};">
+              ${levelScore}/100
+            </div>
+            <div class="text-lg font-semibold" style="color: ${scoreColor};">
+              ${scoreGrade}
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-4 mb-4">
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <div class="text-center">
+                <div class="text-gray-600 font-semibold mb-1">Kesalahan</div>
+                <div class="text-xl font-bold text-red-600">${gameState.mistakes}</div>
+              </div>
+              <div class="text-center">
+                <div class="text-gray-600 font-semibold mb-1">Nyawa Tersisa</div>
+                <div class="text-xl font-bold text-green-600">${gameState.lives}/5</div>
+              </div>
+              <div class="text-center">
+                <div class="text-gray-600 font-semibold mb-1">Waktu Tersisa</div>
+                <div class="text-xl font-bold text-blue-600">${gameState.timeLeft}s</div>
+              </div>
+              <div class="text-center">
+                <div class="text-gray-600 font-semibold mb-1">Node Terisi</div>
+                <div class="text-xl font-bold text-purple-600">${gameState.filledNodes}/${gameState.totalNodes}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-lg mb-4">
+            ${levels[nextLevel].icon} <strong>Level Berikutnya Terbuka!</strong>
+          </div>
+
+          <div class="flex gap-2 justify-center">
+            <button id="next-level-modal" class="px-5 py-2 rounded-lg font-bold shadow-lg transition-all hover:scale-105"
+                    style="background-color: #3b82f6; color: white;">
+              ➡️ Lanjut ke ${levels[nextLevel].name}
+            </button>
+            <button id="back-to-map-modal" class="px-5 py-2 bg-gray-500 text-white rounded-lg font-bold shadow-lg transition-all hover:scale-105">
+              🗺️ Kembali ke Peta
+            </button>
+          </div>
+        `;
+        
+        document.getElementById('next-level-modal').addEventListener('click', () => {
+          playClickSound();
+          modal.classList.add('hidden');
+          startLevel(nextLevel);
+        });
+        
+        document.getElementById('back-to-map-modal').addEventListener('click', () => {
+          playClickSound();
+          modal.classList.add('hidden');
+          showLevelMap();
+        });
+      }
+      
+      modal.classList.remove('hidden');
+      
+      if (isAllLevelsComplete) {
+        document.getElementById('close-celebration').addEventListener('click', () => {
+          playClickSound();
+          modal.classList.add('hidden');
+          showLevelMap();
+        });
+      }
+    }
+
+    function endGame(success) {
+      gameState.isPlaying = false;
+      
+      if (gameState.timerInterval) {
+        clearInterval(gameState.timerInterval);
+        gameState.timerInterval = null;
+      }
+
+      document.getElementById('start-btn').disabled = false;
+      document.getElementById('check-answer-container').classList.add('hidden');
+
+      if (success && !gameState.isPracticeMode) {
+        playSuccessSound();
+        gameState.levelCompleted[gameState.currentLevel] = true;
+        
+        if (gameState.currentLevel < levels.length - 1) {
+          setTimeout(() => {
+            showCelebrationModal(false);
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            showCelebrationModal(true);
+          }, 1000);
+        }
+      } else if (success && gameState.isPracticeMode) {
+        showFeedback('🎉 Selamat! Kamu berhasil menyelesaikan mode latihan!', 'success');
+        setTimeout(() => {
+          showCelebrationModal(true);
+        }, 2000);
+      }
+    }
+
+    function renderLevelMap() {
+      const levelCards = document.getElementById('level-cards');
+      const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      
+      levelCards.innerHTML = levels.map((level, index) => {
+        const isLocked = index > 0 && !gameState.levelCompleted[index - 1];
+        const isCompleted = gameState.levelCompleted[index];
+        const levelScore = gameState.levelScores[index] || 0;
+        const nodeCount = Math.pow(2, level.depth) - 1;
+        
+        return `
+          <div class="relative bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-3 shadow-lg hover:shadow-xl transition-all ${isLocked ? 'opacity-60' : 'cursor-pointer'}" 
+               data-level="${index}"
+               ${isLocked ? 'style="cursor: not-allowed;"' : ''}>
+            ${isCompleted ? `
+              <div class="absolute top-1 right-1 flex items-center gap-1">
+                <span class="text-xs font-bold ${levelScore >= 80 ? 'text-green-600' : levelScore >= 50 ? 'text-yellow-600' : 'text-orange-600'}">${levelScore}</span>
+                <span class="text-lg">✅</span>
+              </div>
+            ` : ''}
+            ${isLocked ? '<div class="absolute top-1 right-1 text-xl">🔒</div>' : ''}
+            
+            <div class="text-center mb-2">
+              <div class="text-3xl mb-1">${level.icon}</div>
+              <h3 class="text-sm font-bold text-gray-800">${level.name}</h3>
+              <div class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold mt-1 ${
+                level.difficulty === 'Mudah' ? 'bg-green-200 text-green-800' :
+                level.difficulty === 'Sedang' ? 'bg-yellow-200 text-yellow-800' :
+                level.difficulty === 'Sulit' ? 'bg-orange-200 text-orange-800' :
+                'bg-red-200 text-red-800'
+              }">
+                ${level.difficulty}
+              </div>
+            </div>
+            
+            <div class="space-y-1 text-xs text-gray-600 mb-2">
+              <div class="flex items-center gap-1">
+                <span>🎯</span>
+                <span>${level.description}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span>⏱️</span>
+                <span>${level.time}s</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span>📊</span>
+                <span>${nodeCount} Node Total</span>
+              </div>
+              ${isCompleted ? `
+                <div class="flex items-center gap-1 font-bold">
+                  <span>⭐</span>
+                  <span>Skor: ${levelScore}/100</span>
+                </div>
+              ` : ''}
+            </div>
+            
+            ${!isLocked ? `
+              <button class="w-full py-1.5 rounded-lg font-bold transition-all shadow-md hover:shadow-lg start-level-btn text-xs"
+                      data-level="${index}"
+                      style="background-color: ${primaryColor}; color: ${surfaceColor};">
+                ${isCompleted ? '🔄 Main Lagi' : '▶️ Mulai'}
+              </button>
+            ` : `
+              <div class="w-full py-1.5 bg-gray-300 text-gray-500 rounded-lg font-bold text-center text-xs">
+                🔒 Locked
+              </div>
+            `}
+          </div>
+        `;
+      }).join('');
+      
+      document.querySelectorAll('.start-level-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          playClickSound();
+          const levelIndex = parseInt(btn.dataset.level);
+          startLevel(levelIndex);
+        });
+      });
+    }
+
+    function showLevelMap() {
+      document.getElementById('intro-screen').classList.add('hidden');
+      document.getElementById('level-map').classList.remove('hidden');
+      document.getElementById('game-screen').classList.add('hidden');
+      renderLevelMap();
+    }
+
+    function hideLevelMap() {
+      document.getElementById('level-map').classList.add('hidden');
+      document.getElementById('game-screen').classList.remove('hidden');
+    }
+
+    function showIntroScreen() {
+      document.getElementById('intro-screen').classList.remove('hidden');
+      document.getElementById('level-map').classList.add('hidden');
+      document.getElementById('game-screen').classList.add('hidden');
+    }
+
+    function hideIntroScreen() {
+      document.getElementById('intro-screen').classList.add('hidden');
+      showLevelMap();
+    }
+
+    function autoSolve() {
+      if (!gameState.isPlaying) {
+        showFeedback('⚠️ Klik "Mulai" terlebih dahulu sebelum menggunakan kunci jawaban!', 'error');
+        return;
+      }
+
+      playClickSound();
+      
+      const wasTimerRunning = gameState.timerInterval !== null;
+      if (wasTimerRunning) {
+        clearInterval(gameState.timerInterval);
+        gameState.timerInterval = null;
+      }
+
+      showFeedback('🔑 Mengisi semua node dengan jawaban yang benar...', 'info');
+
+      let fillIndex = 0;
+      const emptyNodes = gameState.treeStructure.filter(node => !node.filled);
+      
+      const fillInterval = setInterval(() => {
+        if (fillIndex >= emptyNodes.length) {
+          clearInterval(fillInterval);
+          showFeedback('✅ Semua node telah terisi dengan benar! Klik "Periksa Jawaban".', 'success');
+          document.getElementById('check-answer-container').classList.remove('hidden');
+          return;
+        }
+
+        const node = emptyNodes[fillIndex];
+        const range = getValidRange(node.id);
+        
+        const validNumber = gameState.availableNumbers.find(num => {
+          return num > range.minValue && num < range.maxValue;
+        });
+
+        if (validNumber !== undefined) {
+          node.value = validNumber;
+          node.filled = true;
+          gameState.filledNodes++;
+          gameState.availableNumbers = gameState.availableNumbers.filter(n => n !== validNumber);
+          
+          playCorrectSound();
+          drawTree();
+          updateStats();
+        }
+
+        fillIndex++;
+      }, 400);
+    }
+
+    function init() {
+      document.getElementById('start-btn').addEventListener('click', () => startGame(false));
+      document.getElementById('reset-btn').addEventListener('click', resetGame);
+      document.getElementById('practice-btn').addEventListener('click', () => startGame(true));
+      document.getElementById('home-btn').addEventListener('click', () => {
+        playClickSound();
+        if (gameState.timerInterval) {
+          clearInterval(gameState.timerInterval);
+          gameState.timerInterval = null;
+        }
+        gameState.isPlaying = false;
+        document.getElementById('check-answer-container').classList.add('hidden');
+        document.getElementById('delete-node-container').classList.add('hidden');
+        showIntroScreen();
+      });
+      document.getElementById('answer-key-btn').addEventListener('click', autoSolve);
+      document.getElementById('check-answer-btn').addEventListener('click', checkAllAnswers);
+      document.getElementById('delete-node-btn').addEventListener('click', deleteSelectedNode);
+      document.getElementById('practice-mode-btn').addEventListener('click', () => {
+        playClickSound();
+        startGame(true);
+      });
+      document.getElementById('home-from-map-btn').addEventListener('click', () => {
+        playClickSound();
+        showIntroScreen();
+      });
+      document.getElementById('back-to-map').addEventListener('click', () => {
+        playClickSound();
+        if (gameState.timerInterval) {
+          clearInterval(gameState.timerInterval);
+          gameState.timerInterval = null;
+        }
+        resetGame();
+        showLevelMap();
+      });
+      document.getElementById('start-adventure-btn').addEventListener('click', () => {
+        playClickSound();
+        hideIntroScreen();
+      });
+
+      document.getElementById('show-rules-btn').addEventListener('click', () => {
+        playClickSound();
+        document.getElementById('rules-modal').classList.remove('hidden');
+      });
+
+      document.getElementById('close-rules-btn').addEventListener('click', () => {
+        playClickSound();
+        document.getElementById('rules-modal').classList.add('hidden');
+      });
+
+      document.getElementById('close-rules-x').addEventListener('click', () => {
+        playClickSound();
+        document.getElementById('rules-modal').classList.add('hidden');
+      });
+
+      showIntroScreen();
+      onConfigChange(defaultConfig);
+    }
+
+    init();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ba81df63158e9d5',t:'MTc2NzgzNzc5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
