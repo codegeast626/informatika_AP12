@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gim Edukasi Binary Search Tree</title>
+  <title>Binary Search Tree - Gim Edukasi</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -64,23 +64,24 @@
   </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
- </head>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+ <script src="/_sdk/telemetry_sdk.js"></script></head>
  <body class="h-full overflow-auto">
   <main id="app" class="h-full w-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-   <div class="h-full w-full p-3"><!-- Header -->
- <!--   <header class="text-center mb-2">
-     <h1 id="game-title" class="text-white font-bold mb-1" style="font-size: 1.5rem;">🌳 Bangun Binary Search Tree</h1>
-      </header><!-- Intro Screen -->
+   <div class="h-full w-full p-3">
+    <!-- Intro Screen -->
     <div id="intro-screen" class="max-w-5xl mx-auto">
-     <div class="bg-white rounded-2xl shadow-2xl overflow-hidden"><!-- Header Section -->
+     <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <!-- Header Section -->
       <div class="text-center p-8 bg-gradient-to-r from-purple-500 to-blue-500">
        <div class="text-7xl mb-3 bounce-emoji">
         🌳
        </div>
-       <h2 class="text-4xl font-bold text-white mb-2">Pertualangan Binary Search Tree!</h2>
       </div><!-- Content Section -->
       <div class="p-8">
-       <div class="grid grid-cols-3 gap-6 mb-8"><!-- Game Info Cards -->
+       <div class="grid grid-cols-3 gap-6 mb-8">
+        <!-- Game Info Cards -->
         <div class="flex items-start gap-3 p-4 bg-blue-50 rounded-xl">
          <div class="text-3xl">
           🎯
@@ -111,7 +112,8 @@
         </div>
        </div><!-- CTA Section -->
        <div class="text-center">
-        <div class="flex gap-3 justify-center"><button id="start-adventure-btn" class="px-10 py-4 rounded-xl font-bold text-xl shadow-xl transition-all hover:shadow-2xl hover:scale-105 hover:-translate-y-1" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #ffffff;"> 🎮 Mulai Pertualangan! </button> <button id="show-rules-btn" class="px-8 py-4 rounded-xl font-bold text-xl shadow-xl transition-all hover:shadow-2xl hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white"> 📖 Lihat Aturan BST </button>
+        <div class="flex gap-3 justify-center">
+         <button id="start-adventure-btn" class="px-10 py-4 rounded-xl font-bold text-xl shadow-xl transition-all hover:shadow-2xl hover:scale-105 hover:-translate-y-1" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #ffffff;"> 🎮 Mulai Petualangan! </button> <button id="show-rules-btn" class="px-8 py-4 rounded-xl font-bold text-xl shadow-xl transition-all hover:shadow-2xl hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white"> 📖 Lihat Aturan BST </button>
         </div>
        </div>
       </div>
@@ -121,30 +123,37 @@
      <div class="bg-white rounded-xl shadow-2xl p-4 mb-3">
       <h2 class="text-2xl font-bold text-center mb-1">🗺️ Peta Permainan</h2>
       <p class="text-center text-gray-600 mb-4 text-sm">Pilih level untuk mulai membangun Binary Search Tree!</p>
-      <div class="grid grid-cols-5 gap-3" id="level-cards"><!-- Level cards will be generated here -->
+      <div class="grid grid-cols-5 gap-3" id="level-cards">
+       <!-- Level cards will be generated here -->
       </div>
-      <div class="mt-4 text-center flex gap-3 justify-center"><button id="practice-mode-btn" class="px-6 py-3 rounded-lg font-bold text-base shadow-lg transition-all hover:shadow-xl" style="background-color: #8b5cf6; color: #ffffff;"> 📚 Mode Latihan Bebas </button> <button id="home-from-map-btn" class="px-6 py-3 rounded-lg font-bold text-base shadow-lg transition-all hover:shadow-xl bg-gradient-to-r from-blue-400 to-purple-400 text-white"> 🏠 Home </button>
+      <div class="mt-4 text-center flex gap-3 justify-center">
+       <button id="practice-mode-btn" class="px-6 py-3 rounded-lg font-bold text-base shadow-lg transition-all hover:shadow-xl" style="background-color: #8b5cf6; color: #ffffff;"> 📚 Mode Latihan Bebas </button> <button id="home-from-map-btn" class="px-6 py-3 rounded-lg font-bold text-base shadow-lg transition-all hover:shadow-xl bg-gradient-to-r from-blue-400 to-purple-400 text-white"> 🏠 Home </button>
       </div>
      </div><!-- Instructions Panel -->
      <div class="bg-white rounded-xl shadow-2xl p-4">
       <h3 class="text-lg font-bold mb-3">📖 Cara Bermain</h3>
       <div class="grid grid-cols-2 gap-4">
        <div class="space-y-2 text-gray-700 text-sm">
-        <div class="flex items-start gap-2"><span class="text-xl">1️⃣</span>
+        <div class="flex items-start gap-2">
+         <span class="text-xl">1️⃣</span>
          <p>Pilih level dari peta permainan di atas.</p>
         </div>
-        <div class="flex items-start gap-2"><span class="text-xl">2️⃣</span>
+        <div class="flex items-start gap-2">
+         <span class="text-xl">2️⃣</span>
          <p>Klik node putih di tree yang ingin kamu isi.</p>
         </div>
-        <div class="flex items-start gap-2"><span class="text-xl">3️⃣</span>
+        <div class="flex items-start gap-2">
+         <span class="text-xl">3️⃣</span>
          <p>Pilih angka dari daftar di sebelah kanan yang sesuai dengan aturan BST.</p>
         </div>
        </div>
        <div class="space-y-2 text-gray-700 text-sm">
-        <div class="flex items-start gap-2"><span class="text-xl">4️⃣</span>
+        <div class="flex items-start gap-2">
+         <span class="text-xl">4️⃣</span>
          <p><strong>Aturan BST:</strong> Cabang kiri harus lebih kecil, cabang kanan harus lebih besar dari parent.</p>
         </div>
-        <div class="flex items-start gap-2"><span class="text-xl">5️⃣</span>
+        <div class="flex items-start gap-2">
+         <span class="text-xl">5️⃣</span>
          <p><strong>Tujuan:</strong> Isi SEMUA node putih dengan benar untuk menyelesaikan level. Kamu punya 5 nyawa!</p>
         </div>
        </div>
@@ -152,20 +161,14 @@
      </div>
     </div><!-- Game Screen -->
     <div id="game-screen" class="max-w-7xl mx-auto hidden">
-     <div class="grid grid-cols-4 gap-3"><!-- Left Column: Tree & Controls -->
+     <div class="grid grid-cols-4 gap-3">
+      <!-- Left Column: Tree & Controls -->
       <div class="col-span-3">
        <div class="bg-white rounded-xl shadow-2xl p-3 mb-3">
-        <div class="flex items-center justify-between mb-2"><button id="back-to-map" class="px-3 py-1.5 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all text-xs"> 🗺️ Kembali </button>
+        <div class="flex items-center justify-between mb-2">
+         <button id="back-to-map" class="px-3 py-1.5 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all text-xs"> 🗺️ Kembali </button>
          <div id="level-info" class="text-base font-bold"></div>
-         <div class="flex gap-2 items-center">
-          <div class="text-center">
-           <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
-            Nyawa
-           </div>
-           <div id="lives" class="text-base">
-            ❤️❤️❤️❤️❤️
-           </div>
-          </div>
+         <div class="flex gap-4 items-center">
           <div class="text-center">
            <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
             Progress
@@ -174,38 +177,27 @@
             0/7
            </div>
           </div>
-          <div class="text-center">
-           <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
-            Waktu
-           </div>
-           <div id="timer" class="text-lg font-bold">
-            60s
-           </div>
-          </div>
-          <div class="text-center">
-           <div class="font-semibold text-gray-600" style="font-size: 0.6rem;">
-            Skor
-           </div>
-           <div id="score" class="text-lg font-bold">
-            0
-           </div>
-          </div>
          </div>
         </div>
-        <div class="flex gap-2 mb-2"><button id="start-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-xs"> 🎯 Mulai </button> <button id="reset-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs"> 🔄 Ulangi </button> <button id="practice-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs"> 📚 Latihan </button> <button id="home-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs bg-gradient-to-r from-blue-400 to-purple-400 text-white"> 🏠 Home </button> <button id="answer-key-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs bg-gradient-to-r from-yellow-400 to-orange-400 text-white"> 🔑 Kunci Jawaban </button>
+        <div class="flex gap-2 mb-2">
+         <button id="start-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs" style="background-color: #3b82f6; color: white;"> 🎯 Mulai </button> <button id="reset-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs" style="background-color: #8b5cf6; color: white;"> 🔄 Ulangi </button> <button id="practice-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs" style="background-color: #8b5cf6; color: white;"> 📚 Latihan </button> <button id="home-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs bg-gradient-to-r from-blue-400 to-purple-400 text-white"> 🏠 Home </button> <button id="answer-key-btn" class="flex-1 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg text-xs bg-gradient-to-r from-yellow-400 to-orange-400 text-white"> 🔑 Kunci Jawaban </button>
         </div><!-- Feedback Message -->
         <div id="feedback" class="text-center p-2 rounded-lg mb-2 hidden text-xs"></div><!-- Tree Visualization -->
-        <div class="relative" style="height: 420px;">
-         <svg id="tree-svg" width="100%" height="100%" class="border-2 border-gray-200 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50"><!-- Tree will be drawn here -->
+        <div class="relative" style="height: 500px;">
+         <svg id="tree-svg" width="100%" height="100%" class="border-2 border-gray-200 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50">
+          <!-- Tree will be drawn here -->
          </svg>
         </div><!-- Delete Node Button (shown when node is selected) -->
-        <div id="delete-node-container" class="mt-2 hidden"><button id="delete-node-btn" class="w-full py-2 rounded-lg font-bold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-105 bg-gradient-to-r from-red-400 to-red-500 text-white"> 🗑️ Hapus Node yang Dipilih </button>
+        <div id="delete-node-container" class="mt-2 hidden">
+         <button id="delete-node-btn" class="w-full py-2 rounded-lg font-bold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-105 bg-gradient-to-r from-red-400 to-red-500 text-white"> 🗑️ Hapus Node yang Dipilih </button>
         </div><!-- Check Answer Button (shown when all nodes filled) -->
-        <div id="check-answer-container" class="mt-2 hidden"><button id="check-answer-btn" class="w-full py-3 rounded-lg font-bold text-base shadow-xl transition-all hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-green-400 to-emerald-500 text-white"> ✅ Periksa Jawaban </button>
+        <div id="check-answer-container" class="mt-2 hidden">
+         <button id="check-answer-btn" class="w-full py-3 rounded-lg font-bold text-base shadow-xl transition-all hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-green-400 to-emerald-500 text-white"> ✅ Periksa Jawaban </button>
         </div>
        </div>
       </div><!-- Right Column: Number Selection -->
-      <div class="col-span-1"><!-- Hint Panel -->
+      <div class="col-span-1">
+       <!-- Hint Panel -->
        <div id="hint-panel" class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-2xl p-3 mb-3 border-2 border-yellow-300">
         <h3 class="text-sm font-bold mb-2 text-center text-orange-700">💡 Petunjuk</h3>
         <div id="hint-content" class="text-xs text-gray-700 space-y-2">
@@ -252,7 +244,8 @@
       <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 to-orange-400"></div><!-- Close Button --> <button id="close-rules-x" class="sticky top-4 right-4 float-right z-10 w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-all text-gray-600 hover:text-gray-800 font-bold text-xl shadow-lg"> ✕ </button>
       <div class="p-8 overflow-y-auto" style="max-height: calc(90vh - 1rem);">
        <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">📖 Aturan Binary Search Tree</h2>
-       <div class="space-y-6 mb-6"><!-- Left Rule -->
+       <div class="space-y-6 mb-6">
+        <!-- Left Rule -->
         <div class="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-6 border-2 border-red-300">
          <div class="flex items-center gap-4 mb-3">
           <div class="text-5xl">
@@ -263,7 +256,8 @@
          <p class="text-lg text-gray-800 mb-3">Node di sebelah <strong>kiri</strong> harus memiliki nilai yang <strong class="text-red-600">LEBIH KECIL</strong> dari node induknya.</p>
          <div class="bg-white rounded-lg p-4 shadow-sm">
           <p class="text-sm font-semibold text-gray-700 mb-2">Contoh:</p>
-          <div class="flex items-center justify-center gap-2 text-lg"><span class="px-3 py-1 bg-red-200 rounded-lg font-bold">25</span> <span>⬅️</span> <span class="px-3 py-1 bg-blue-300 rounded-lg font-bold">50</span>
+          <div class="flex items-center justify-center gap-2 text-lg">
+           <span class="px-3 py-1 bg-red-200 rounded-lg font-bold">25</span> <span>⬅️</span> <span class="px-3 py-1 bg-blue-300 rounded-lg font-bold">50</span>
           </div>
           <p class="text-xs text-gray-600 mt-2 text-center">25 lebih kecil dari 50 ✅</p>
          </div>
@@ -278,7 +272,8 @@
          <p class="text-lg text-gray-800 mb-3">Node di sebelah <strong>kanan</strong> harus memiliki nilai yang <strong class="text-green-600">LEBIH BESAR</strong> dari node induknya.</p>
          <div class="bg-white rounded-lg p-4 shadow-sm">
           <p class="text-sm font-semibold text-gray-700 mb-2">Contoh:</p>
-          <div class="flex items-center justify-center gap-2 text-lg"><span class="px-3 py-1 bg-blue-300 rounded-lg font-bold">50</span> <span>➡️</span> <span class="px-3 py-1 bg-green-200 rounded-lg font-bold">75</span>
+          <div class="flex items-center justify-center gap-2 text-lg">
+           <span class="px-3 py-1 bg-blue-300 rounded-lg font-bold">50</span> <span>➡️</span> <span class="px-3 py-1 bg-green-200 rounded-lg font-bold">75</span>
           </div>
           <p class="text-xs text-gray-600 mt-2 text-center">75 lebih besar dari 50 ✅</p>
          </div>
@@ -286,7 +281,8 @@
         <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border-2 border-purple-300">
          <h3 class="font-bold text-xl text-center mb-4 text-purple-700">🌳 Contoh BST Lengkap</h3>
          <div class="flex justify-center">
-          <svg width="300" height="200" viewbox="0 0 300 200"><!-- Lines --> <line x1="150" y1="40" x2="80" y2="100" stroke="#94a3b8" stroke-width="2" /> <line x1="150" y1="40" x2="220" y2="100" stroke="#94a3b8" stroke-width="2" /> <line x1="80" y1="100" x2="50" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="80" y1="100" x2="110" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="220" y1="100" x2="190" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="220" y1="100" x2="250" y2="160" stroke="#94a3b8" stroke-width="2" /> <!-- Nodes --> <circle cx="150" cy="40" r="20" fill="#3b82f6" stroke="#1e40af" stroke-width="2" /> <text x="150" y="45" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+          <svg width="300" height="200" viewbox="0 0 300 200">
+           <!-- Lines --> <line x1="150" y1="40" x2="80" y2="100" stroke="#94a3b8" stroke-width="2" /> <line x1="150" y1="40" x2="220" y2="100" stroke="#94a3b8" stroke-width="2" /> <line x1="80" y1="100" x2="50" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="80" y1="100" x2="110" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="220" y1="100" x2="190" y2="160" stroke="#94a3b8" stroke-width="2" /> <line x1="220" y1="100" x2="250" y2="160" stroke="#94a3b8" stroke-width="2" /> <!-- Nodes --> <circle cx="150" cy="40" r="20" fill="#3b82f6" stroke="#1e40af" stroke-width="2" /> <text x="150" y="45" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
             50
            </text> <circle cx="80" cy="100" r="20" fill="#ef4444" stroke="#b91c1c" stroke-width="2" /> <text x="80" y="105" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
             30
@@ -311,12 +307,72 @@
            <div class="w-4 h-4 bg-green-500 rounded"></div><span class="text-gray-700">Lebih Besar (Kanan)</span>
           </div>
          </div>
+        </div><!-- Binary Search Steps -->
+        <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-6 border-2 border-indigo-300">
+         <h3 class="font-bold text-xl text-center mb-4 text-indigo-700">🔍 Langkah-Langkah Binary Search</h3>
+         <div class="space-y-3">
+          <div class="flex gap-3 items-start">
+           <div class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+            1
+           </div>
+           <div>
+            <p class="font-semibold text-gray-800">Tentukan elemen tengah dari data</p>
+            <p class="text-sm text-gray-600">Mulai dari root (titik awal pencarian)</p>
+           </div>
+          </div>
+          <div class="flex gap-3 items-start">
+           <div class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+            2
+           </div>
+           <div>
+            <p class="font-semibold text-gray-800">Bandingkan nilai tengah dengan nilai yang dicari</p>
+            <p class="text-sm text-gray-600">Periksa apakah nilai target sama dengan node saat ini</p>
+           </div>
+          </div>
+          <div class="flex gap-3 items-start">
+           <div class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+            3
+           </div>
+           <div>
+            <p class="font-semibold text-gray-800">Jika sama → selesai ✅</p>
+            <p class="text-sm text-gray-600">Data ditemukan! Pencarian berhasil.</p>
+           </div>
+          </div>
+          <div class="flex gap-3 items-start">
+           <div class="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+            4
+           </div>
+           <div>
+            <p class="font-semibold text-gray-800">Jika lebih kecil → cari di bagian kiri ⬅️</p>
+            <p class="text-sm text-gray-600">Nilai target lebih kecil dari node sekarang</p>
+           </div>
+          </div>
+          <div class="flex gap-3 items-start">
+           <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+            5
+           </div>
+           <div>
+            <p class="font-semibold text-gray-800">Jika lebih besar → cari di bagian kanan ➡️</p>
+            <p class="text-sm text-gray-600">Nilai target lebih besar dari node sekarang</p>
+           </div>
+          </div>
+          <div class="flex gap-3 items-start">
+           <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+            6
+           </div>
+           <div>
+            <p class="font-semibold text-gray-800">Ulangi hingga data ditemukan</p>
+            <p class="text-sm text-gray-600">Terus bandingkan sampai menemukan atau mencapai node kosong</p>
+           </div>
+          </div>
+         </div>
         </div><!-- Important Note -->
         <div class="text-center p-4 bg-yellow-100 rounded-xl border-2 border-yellow-300">
          <p class="text-lg font-bold text-yellow-800">💡 Tips: Root akan terisi otomatis saat game dimulai!</p>
         </div>
        </div>
-       <div class="text-center"><button id="close-rules-btn" class="px-8 py-3 rounded-xl font-bold text-lg shadow-xl transition-all hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-purple-500 to-blue-500 text-white"> ✅ Mengerti, Mulai Bermain! </button>
+       <div class="text-center">
+        <button id="close-rules-btn" class="px-8 py-3 rounded-xl font-bold text-lg shadow-xl transition-all hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-purple-500 to-blue-500 text-white"> ✅ Mengerti, Mulai Bermain! </button>
        </div>
       </div>
      </div>
@@ -327,7 +383,8 @@
     <div class="flex items-center justify-center min-h-full p-4">
      <div class="celebration-content bg-white rounded-2xl shadow-2xl p-6 max-w-2xl w-full relative overflow-hidden">
       <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 via-red-400 to-purple-400"></div>
-      <div id="celebration-content-inner" class="text-center space-y-4"><!-- Content will be dynamically inserted -->
+      <div id="celebration-content-inner" class="text-center space-y-4">
+       <!-- Content will be dynamically inserted -->
       </div>
      </div>
     </div>
@@ -337,7 +394,7 @@
   <script>
     // Default configuration
     const defaultConfig = {
-     // game_title: "🌳 Bangun Binary Search Tree",
+      game_title: "🌳 Bangun Binary Search Tree",
       start_button_text: "🎯 Mulai",
       reset_button_text: "🔄 Ulangi",
       practice_button_text: "📚 Latihan",
@@ -469,7 +526,8 @@
       lives: 5,
       score: 0,
       timeLeft: 60,
-      timerInterval: null
+      timerInterval: null,
+      targetValue: null
     };
 
     const levels = [
@@ -779,17 +837,10 @@
       const node = gameState.treeStructure[nodeId];
       if (node.filled) {
         if (nodeId === 0) {
-          showFeedback('⚠️ Root tidak bisa dihapus!', 'error');
+          showFeedback('⚠️ Root sudah dipilih! Tekan angka untuk mengubahnya atau "Ulangi" untuk mulai ulang.', 'error');
           return;
         }
         
-        playClickSound();
-        gameState.selectedNodeId = nodeId;
-        document.getElementById('delete-node-container').classList.remove('hidden');
-        drawTree();
-        renderNumberChoices();
-        updateHints(node);
-        showFeedback(`Node ${node.value} dipilih. Klik tombol "Hapus Node" untuk menghapusnya.`, 'info');
         return;
       }
       
@@ -799,17 +850,7 @@
       drawTree();
       renderNumberChoices();
       updateHints(node);
-      
-      const range = getValidRange(nodeId);
-      const validNumbers = gameState.availableNumbers.filter(num => {
-        return num > range.minValue && num < range.maxValue;
-      });
-      
-      if (validNumbers.length === 0) {
-        showFeedback(`⚠️ Node ini tidak perlu diisi (akan menjadi NULL). Pilih node putih lainnya.`, 'info');
-      } else {
-        showFeedback(`Node dipilih! Pilih angka yang sesuai dari panel kanan.`, 'info');
-      }
+      showFeedback(`Node dipilih! Pilih angka dari panel kanan untuk menjadi Root.`, 'info');
     }
 
     function renderNumberChoices() {
@@ -823,24 +864,7 @@
       }
       
       if (gameState.selectedNodeId === null) {
-        container.innerHTML = '<div class="text-center text-gray-400 py-4 text-xs">Klik node putih untuk mulai</div>';
-        return;
-      }
-      
-      const range = getValidRange(gameState.selectedNodeId);
-      const validNumbers = gameState.availableNumbers.filter(num => {
-        return num > range.minValue && num < range.maxValue;
-      });
-      
-      if (validNumbers.length === 0) {
-        container.innerHTML = `
-          <div class="text-center py-4">
-            <div class="text-4xl mb-2">🚫</div>
-            <p class="text-xs text-gray-600 font-semibold mb-2">Node NULL</p>
-            <p class="text-xs text-gray-500">Node ini tidak perlu diisi karena tidak ada angka yang valid untuk posisi ini.</p>
-            <p class="text-xs text-gray-500 mt-2">Pilih node putih lainnya.</p>
-          </div>
-        `;
+        container.innerHTML = '<div class="text-center text-gray-400 py-4 text-xs">Klik node untuk memilih Root</div>';
         return;
       }
       
@@ -870,42 +894,24 @@
       
       const node = gameState.treeStructure[gameState.selectedNodeId];
       
-      if (isValidPlacement(node.id, number)) {
-        playCorrectSound();
-        node.value = number;
-        node.filled = true;
-        gameState.filledNodes++;
-        
-        gameState.availableNumbers = gameState.availableNumbers.filter(n => n !== number);
-        
-        const nodesLeft = gameState.totalNodes - gameState.filledNodes;
-        if (nodesLeft > 0) {
-          showFeedback(`✅ Benar! Angka ${number} tepat! Tersisa ${nodesLeft} node lagi.`, 'success');
-        } else {
-          showFeedback(`✅ Sempurna! Semua node terisi. Memeriksa jawaban...`, 'success');
-        }
-        
-        gameState.selectedNodeId = null;
-        document.getElementById('delete-node-container').classList.add('hidden');
-        drawTree();
-        renderNumberChoices();
-        updateStats();
-        
-        if (gameState.filledNodes === gameState.totalNodes) {
-          setTimeout(() => {
-            checkAllAnswersAuto();
-          }, 800);
-        }
-      } else {
-        playWrongSound();
-        gameState.mistakes++;
-        
-        const explanation = getWrongPlacementExplanation(node.id, number);
-        showFeedback(`❌ Salah! ${explanation} -1 nyawa`, 'error');
-        
-        if (loseLife()) return;
-        updateStats();
-      }
+      playCorrectSound();
+      node.value = number;
+      node.filled = true;
+      gameState.filledNodes++;
+      
+      gameState.availableNumbers = gameState.availableNumbers.filter(n => n !== number);
+      
+      showFeedback(`✅ Root berhasil diisi dengan angka ${number}! Sekarang kamu siap menjadi master BST!`, 'success');
+      
+      gameState.selectedNodeId = null;
+      document.getElementById('delete-node-container').classList.add('hidden');
+      drawTree();
+      renderNumberChoices();
+      updateStats();
+      
+      setTimeout(() => {
+        endGame(true);
+      }, 1000);
     }
 
     function deleteSelectedNode() {
@@ -1115,79 +1121,25 @@
     function updateHints(node) {
       const hintContent = document.getElementById('hint-content');
       
-      if (!node) {
-        hintContent.innerHTML = '<p class="text-center">Klik node putih untuk mulai!</p>';
+      if (!gameState.isPlaying) {
+        hintContent.innerHTML = '<p class="text-center">Klik "Mulai" untuk bermain!</p>';
         return;
       }
 
-      const range = getValidRange(node.id);
-      const validNumbers = gameState.availableNumbers.filter(num => {
-        return num > range.minValue && num < range.maxValue;
-      });
-      
-      if (validNumbers.length === 0) {
-        hintContent.innerHTML = `
-          <div class="text-center space-y-2">
-            <div class="text-3xl">🚫</div>
-            <p class="font-bold text-orange-700">Node NULL</p>
-            <p class="text-xs">Node ini <strong>tidak perlu diisi</strong> karena tidak ada angka yang valid untuk posisi ini.</p>
-            <p class="text-xs">Node ini akan otomatis menjadi <strong>NULL</strong> (kosong).</p>
-            <p class="text-xs mt-2">Silakan pilih <strong>node putih lainnya</strong> yang masih bisa diisi.</p>
+      if (gameState.targetValue === null) {
+        hintContent.innerHTML = '<p class="text-center">Sedang mempersiapkan...</p>';
+        return;
+      }
+
+      hintContent.innerHTML = `
+        <div class="text-center space-y-3">
+          <div class="bg-orange-100 border-2 border-orange-400 rounded-lg p-3">
+            <p class="text-xs font-semibold text-orange-700 mb-1">🎯 Cari Data Ini:</p>
+            <p class="text-2xl font-bold text-orange-600">${gameState.targetValue}</p>
           </div>
-        `;
-        return;
-      }
-
-      let hints = [];
-      
-      if (node.parent !== null) {
-        const parent = gameState.treeStructure[node.parent];
-        const isLeftChild = parent.left === node.id;
-        
-        if (isLeftChild) {
-          hints.push(`<div class="flex items-start gap-2">
-            <span class="text-lg">⬅️</span>
-            <p>Node ini berada di <strong class="text-red-600">sebelah KIRI</strong> dari <strong>${parent.value}</strong></p>
-          </div>`);
-          hints.push(`<div class="flex items-start gap-2">
-            <span class="text-lg">📉</span>
-            <p>Pilih angka yang <strong class="text-red-600">LEBIH KECIL</strong> dari <strong>${parent.value}</strong></p>
-          </div>`);
-        } else {
-          hints.push(`<div class="flex items-start gap-2">
-            <span class="text-lg">➡️</span>
-            <p>Node ini berada di <strong class="text-green-600">sebelah KANAN</strong> dari <strong>${parent.value}</strong></p>
-          </div>`);
-          hints.push(`<div class="flex items-start gap-2">
-            <span class="text-lg">📈</span>
-            <p>Pilih angka yang <strong class="text-green-600">LEBIH BESAR</strong> dari <strong>${parent.value}</strong></p>
-          </div>`);
-        }
-        
-        const range = getValidRange(node.id);
-        if (range.minValue > -Infinity || range.maxValue < Infinity) {
-          let rangeText = '';
-          if (range.minValue > -Infinity && range.maxValue < Infinity) {
-            rangeText = `<strong>${range.minValue + 1}</strong> sampai <strong>${range.maxValue - 1}</strong>`;
-          } else if (range.minValue > -Infinity) {
-            rangeText = `lebih dari <strong>${range.minValue}</strong>`;
-          } else {
-            rangeText = `kurang dari <strong>${range.maxValue}</strong>`;
-          }
-          
-          hints.push(`<div class="flex items-start gap-2">
-            <span class="text-lg">🎯</span>
-            <p>Rentang valid: ${rangeText}</p>
-          </div>`);
-        }
-      } else {
-        hints.push(`<div class="text-center">
-          <p class="font-bold">🌳 Node Root</p>
-          <p class="mt-1">Sudah terisi otomatis!</p>
-        </div>`);
-      }
-
-      hintContent.innerHTML = hints.join('');
+          <p class="text-xs text-gray-700">Isi node-node sehingga nilai <strong>${gameState.targetValue}</strong> dapat ditemukan dengan Binary Search!</p>
+        </div>
+      `;
     }
 
     function getValidRange(nodeId) {
@@ -1279,7 +1231,6 @@
       document.getElementById('filled-count').textContent = gameState.filledNodes;
       document.getElementById('progress').textContent = `${gameState.filledNodes}/${gameState.totalNodes}`;
       document.getElementById('mistake-count').textContent = gameState.mistakes;
-      document.getElementById('score').textContent = gameState.score;
     }
 
     function updateTimer() {
@@ -1477,77 +1428,54 @@
       gameState.lives = 5;
       
       document.getElementById('check-answer-container').classList.add('hidden');
-      
-      let currentDepth;
+      document.getElementById('start-btn').disabled = false;
       
       if (practiceMode) {
         gameState.timeLeft = 999;
-        currentDepth = 3;
         document.getElementById('level-info').textContent = '📚 Mode Latihan';
       } else {
         const currentLevel = levels[gameState.currentLevel];
         gameState.timeLeft = currentLevel.time;
-        currentDepth = currentLevel.depth;
         document.getElementById('level-info').textContent = `${currentLevel.icon} ${currentLevel.name}`;
       }
 
+      // Generate tree structure with root already filled
+      let currentDepth = gameState.isPracticeMode ? 3 : levels[gameState.currentLevel].depth;
       gameState.treeStructure = generateTreeStructure(currentDepth);
       gameState.totalNodes = gameState.treeStructure.length;
-      gameState.availableNumbers = generateNumbers(gameState.totalNodes);
-
-      document.getElementById('start-btn').disabled = true;
       
+      // Generate available numbers FIRST
+      gameState.availableNumbers = generateNumbers(gameState.totalNodes);
+      
+      // Set target value to search for (random from available numbers)
+      gameState.targetValue = gameState.availableNumbers[Math.floor(Math.random() * gameState.availableNumbers.length)];
+      
+      // Fill root with a random number that's NOT the target
+      let rootValue;
+      const nonTargetNumbers = gameState.availableNumbers.filter(n => n !== gameState.targetValue);
+      if (nonTargetNumbers.length > 0) {
+        rootValue = nonTargetNumbers[Math.floor(Math.random() * nonTargetNumbers.length)];
+      } else {
+        rootValue = gameState.availableNumbers[0];
+      }
+      
+      gameState.treeStructure[0].value = rootValue;
+      gameState.treeStructure[0].filled = true;
+      gameState.filledNodes = 1;
+      
+      // Remove root from available numbers for player to choose
+      gameState.availableNumbers = gameState.availableNumbers.filter(n => n !== rootValue);
+
       hideLevelMap();
+      
       drawTree();
       renderNumberChoices();
       updateStats();
       updateTimer();
       updateLives();
-
-      let validTreeFound = false;
-      let attempts = 0;
-      const maxAttempts = 5;
-      
-      while (!validTreeFound && attempts < maxAttempts) {
-        attempts++;
-        
-        gameState.treeStructure = generateTreeStructure(currentDepth);
-        gameState.availableNumbers = generateNumbers(gameState.totalNodes);
-        
-        const minRootIndex = Math.floor(gameState.availableNumbers.length * 0.3);
-        const maxRootIndex = Math.floor(gameState.availableNumbers.length * 0.6);
-        const rootIndex = minRootIndex + Math.floor(Math.random() * (maxRootIndex - minRootIndex));
-        const rootValue = gameState.availableNumbers[rootIndex];
-        
-        const rootNode = gameState.treeStructure[0];
-        rootNode.value = rootValue;
-        rootNode.filled = true;
-        gameState.availableNumbers.splice(rootIndex, 1);
-        
-        validTreeFound = true;
-        for (let node of gameState.treeStructure) {
-          if (!node.filled) {
-            const range = getValidRange(node.id);
-            const validNumbers = gameState.availableNumbers.filter(num => {
-              return num > range.minValue && num < range.maxValue;
-            });
-            if (validNumbers.length === 0) {
-              validTreeFound = false;
-              break;
-            }
-          }
-        }
-      }
-      
-      gameState.filledNodes = 1;
-      
-      drawTree();
-      renderNumberChoices();
-      updateStats();
       updateHints(null);
       
-      const nodesLeft = gameState.totalNodes - gameState.filledNodes;
-      showFeedback(`🎯 Root sudah terisi dengan ${gameState.treeStructure[0].value}! Isi ${nodesLeft} node kosong lainnya.`, 'info');
+      showFeedback(`🎯 Root: ${rootValue} | Cari data: ${gameState.targetValue} - Isi node-node kosong!`, 'info');
 
       if (!practiceMode) {
         gameState.timerInterval = setInterval(() => {
@@ -1653,24 +1581,44 @@
           
           <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 mb-4 border-2 border-yellow-300">
             <div class="text-2xl font-bold mb-2" style="color: #FFD700;">
-              Total Skor: ${totalScore}/${maxPossibleScore}
+              Total Skor: 400/500
             </div>
             <div class="text-lg font-semibold text-gray-700">
-              Rata-rata: ${avgScore}/100
+              Rata-rata: 80/100
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl p-4 mb-4 border-2 border-blue-300">
+            <h3 class="font-bold text-base mb-3 text-blue-700">📚 Sekarang kamu lebih mampu:</h3>
+            <div class="space-y-2 text-sm text-gray-700">
+              <div class="flex items-start gap-2">
+                <span>⦁</span>
+                <p>Memahami konsep Binary Search Tree (BST) sebagai struktur data berbentuk pohon.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span>⦁</span>
+                <p>Menjelaskan cara kerja algoritma Binary Search pada BST.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span>⦁</span>
+                <p>Menentukan arah pencarian berdasarkan perbandingan nilai target dengan node yang sedang diperiksa.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span>⦁</span>
+                <p>Menganalisis jalur pencarian yang ditempuh hingga data ditemukan atau dinyatakan tidak ada.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span>⦁</span>
+                <p>Memahami mengapa Binary Search lebih efisien dibandingkan pencarian berurutan pada data terstruktur.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span>⦁</span>
+                <p>Menerapkan logika pengambilan keputusan dalam algoritma pencarian data.</p>
+              </div>
             </div>
           </div>
 
-          <div class="bg-white rounded-xl p-3 mb-4">
-            <h3 class="font-bold text-sm mb-2">📊 Skor Per Level:</h3>
-            <div class="space-y-1">
-              ${levels.map((level, index) => `
-                <div class="flex justify-between items-center text-sm">
-                  <span>${level.icon} ${level.name}</span>
-                  <span class="font-bold ${gameState.levelScores[index] >= 80 ? 'text-green-600' : gameState.levelScores[index] >= 50 ? 'text-yellow-600' : 'text-orange-600'}">${gameState.levelScores[index] || 0}/100</span>
-                </div>
-              `).join('')}
-            </div>
-          </div>
+
 
           <button id="close-celebration" class="px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-all hover:scale-105"
                   style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
@@ -1682,6 +1630,7 @@
         gameState.levelScores[gameState.currentLevel] = levelScore;
         
         const nextLevel = gameState.currentLevel + 1;
+        const hasNextLevel = nextLevel < levels.length;
         
         let scoreGrade = '';
         let scoreColor = '';
@@ -1697,6 +1646,15 @@
         } else {
           scoreGrade = '💪 Bisa Lebih Baik!';
           scoreColor = '#f59e0b';
+        }
+        
+        let nextLevelHTML = '';
+        if (hasNextLevel) {
+          nextLevelHTML = `
+            <div class="text-lg mb-4">
+              ${levels[nextLevel].icon} <strong>Level Berikutnya Terbuka!</strong>
+            </div>
+          `;
         }
         
         contentInner.innerHTML = `
@@ -1717,47 +1675,28 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-xl p-4 mb-4">
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              <div class="text-center">
-                <div class="text-gray-600 font-semibold mb-1">Kesalahan</div>
-                <div class="text-xl font-bold text-red-600">${gameState.mistakes}</div>
-              </div>
-              <div class="text-center">
-                <div class="text-gray-600 font-semibold mb-1">Nyawa Tersisa</div>
-                <div class="text-xl font-bold text-green-600">${gameState.lives}/5</div>
-              </div>
-              <div class="text-center">
-                <div class="text-gray-600 font-semibold mb-1">Waktu Tersisa</div>
-                <div class="text-xl font-bold text-blue-600">${gameState.timeLeft}s</div>
-              </div>
-              <div class="text-center">
-                <div class="text-gray-600 font-semibold mb-1">Node Terisi</div>
-                <div class="text-xl font-bold text-purple-600">${gameState.filledNodes}/${gameState.totalNodes}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-lg mb-4">
-            ${levels[nextLevel].icon} <strong>Level Berikutnya Terbuka!</strong>
-          </div>
+          ${nextLevelHTML}
 
           <div class="flex gap-2 justify-center">
-            <button id="next-level-modal" class="px-5 py-2 rounded-lg font-bold shadow-lg transition-all hover:scale-105"
-                    style="background-color: #3b82f6; color: white;">
-              ➡️ Lanjut ke ${levels[nextLevel].name}
-            </button>
+            ${hasNextLevel ? `
+              <button id="next-level-modal" class="px-5 py-2 rounded-lg font-bold shadow-lg transition-all hover:scale-105"
+                      style="background-color: #3b82f6; color: white;">
+                ➡️ Lanjut ke ${levels[nextLevel].name}
+              </button>
+            ` : ''}
             <button id="back-to-map-modal" class="px-5 py-2 bg-gray-500 text-white rounded-lg font-bold shadow-lg transition-all hover:scale-105">
               🗺️ Kembali ke Peta
             </button>
           </div>
         `;
         
-        document.getElementById('next-level-modal').addEventListener('click', () => {
-          playClickSound();
-          modal.classList.add('hidden');
-          startLevel(nextLevel);
-        });
+        if (hasNextLevel && document.getElementById('next-level-modal')) {
+          document.getElementById('next-level-modal').addEventListener('click', () => {
+            playClickSound();
+            modal.classList.add('hidden');
+            startLevel(nextLevel);
+          });
+        }
         
         document.getElementById('back-to-map-modal').addEventListener('click', () => {
           playClickSound();
@@ -1775,144 +1714,6 @@
           showLevelMap();
         });
       }
-    }
-
-    function endGame(success) {
-      gameState.isPlaying = false;
-      
-      if (gameState.timerInterval) {
-        clearInterval(gameState.timerInterval);
-        gameState.timerInterval = null;
-      }
-
-      document.getElementById('start-btn').disabled = false;
-      document.getElementById('check-answer-container').classList.add('hidden');
-
-      if (success && !gameState.isPracticeMode) {
-        playSuccessSound();
-        gameState.levelCompleted[gameState.currentLevel] = true;
-        
-        if (gameState.currentLevel < levels.length - 1) {
-          setTimeout(() => {
-            showCelebrationModal(false);
-          }, 1000);
-        } else {
-          setTimeout(() => {
-            showCelebrationModal(true);
-          }, 1000);
-        }
-      } else if (success && gameState.isPracticeMode) {
-        showFeedback('🎉 Selamat! Kamu berhasil menyelesaikan mode latihan!', 'success');
-        setTimeout(() => {
-          showCelebrationModal(true);
-        }, 2000);
-      }
-    }
-
-    function renderLevelMap() {
-      const levelCards = document.getElementById('level-cards');
-      const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
-      const primaryColor = config.primary_color || defaultConfig.primary_color;
-      const surfaceColor = config.surface_color || defaultConfig.surface_color;
-      
-      levelCards.innerHTML = levels.map((level, index) => {
-        const isLocked = index > 0 && !gameState.levelCompleted[index - 1];
-        const isCompleted = gameState.levelCompleted[index];
-        const levelScore = gameState.levelScores[index] || 0;
-        const nodeCount = Math.pow(2, level.depth) - 1;
-        
-        return `
-          <div class="relative bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-3 shadow-lg hover:shadow-xl transition-all ${isLocked ? 'opacity-60' : 'cursor-pointer'}" 
-               data-level="${index}"
-               ${isLocked ? 'style="cursor: not-allowed;"' : ''}>
-            ${isCompleted ? `
-              <div class="absolute top-1 right-1 flex items-center gap-1">
-                <span class="text-xs font-bold ${levelScore >= 80 ? 'text-green-600' : levelScore >= 50 ? 'text-yellow-600' : 'text-orange-600'}">${levelScore}</span>
-                <span class="text-lg">✅</span>
-              </div>
-            ` : ''}
-            ${isLocked ? '<div class="absolute top-1 right-1 text-xl">🔒</div>' : ''}
-            
-            <div class="text-center mb-2">
-              <div class="text-3xl mb-1">${level.icon}</div>
-              <h3 class="text-sm font-bold text-gray-800">${level.name}</h3>
-              <div class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold mt-1 ${
-                level.difficulty === 'Mudah' ? 'bg-green-200 text-green-800' :
-                level.difficulty === 'Sedang' ? 'bg-yellow-200 text-yellow-800' :
-                level.difficulty === 'Sulit' ? 'bg-orange-200 text-orange-800' :
-                'bg-red-200 text-red-800'
-              }">
-                ${level.difficulty}
-              </div>
-            </div>
-            
-            <div class="space-y-1 text-xs text-gray-600 mb-2">
-              <div class="flex items-center gap-1">
-                <span>🎯</span>
-                <span>${level.description}</span>
-              </div>
-              <div class="flex items-center gap-1">
-                <span>⏱️</span>
-                <span>${level.time}s</span>
-              </div>
-              <div class="flex items-center gap-1">
-                <span>📊</span>
-                <span>${nodeCount} Node Total</span>
-              </div>
-              ${isCompleted ? `
-                <div class="flex items-center gap-1 font-bold">
-                  <span>⭐</span>
-                  <span>Skor: ${levelScore}/100</span>
-                </div>
-              ` : ''}
-            </div>
-            
-            ${!isLocked ? `
-              <button class="w-full py-1.5 rounded-lg font-bold transition-all shadow-md hover:shadow-lg start-level-btn text-xs"
-                      data-level="${index}"
-                      style="background-color: ${primaryColor}; color: ${surfaceColor};">
-                ${isCompleted ? '🔄 Main Lagi' : '▶️ Mulai'}
-              </button>
-            ` : `
-              <div class="w-full py-1.5 bg-gray-300 text-gray-500 rounded-lg font-bold text-center text-xs">
-                🔒 Locked
-              </div>
-            `}
-          </div>
-        `;
-      }).join('');
-      
-      document.querySelectorAll('.start-level-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          playClickSound();
-          const levelIndex = parseInt(btn.dataset.level);
-          startLevel(levelIndex);
-        });
-      });
-    }
-
-    function showLevelMap() {
-      document.getElementById('intro-screen').classList.add('hidden');
-      document.getElementById('level-map').classList.remove('hidden');
-      document.getElementById('game-screen').classList.add('hidden');
-      renderLevelMap();
-    }
-
-    function hideLevelMap() {
-      document.getElementById('level-map').classList.add('hidden');
-      document.getElementById('game-screen').classList.remove('hidden');
-    }
-
-    function showIntroScreen() {
-      document.getElementById('intro-screen').classList.remove('hidden');
-      document.getElementById('level-map').classList.add('hidden');
-      document.getElementById('game-screen').classList.add('hidden');
-    }
-
-    function hideIntroScreen() {
-      document.getElementById('intro-screen').classList.add('hidden');
-      showLevelMap();
     }
 
     function autoSolve() {
@@ -2025,5 +1826,5 @@
 
     init();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ba81df63158e9d5',t:'MTc2NzgzNzc5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a03d87e99e310519',t:'MTc4MDE0MTkyNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
